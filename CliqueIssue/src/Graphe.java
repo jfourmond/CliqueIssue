@@ -3,31 +3,43 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 public class Graphe {
-	private int nbCol;
-	private int nbRow;
+	private int nbSommets;
 	private boolean arcs[][];
 	
 	public Graphe() {
-		nbCol = 0;
-		nbRow = 0;
-		arcs = new boolean[nbRow][nbCol];
+		nbSommets = 0;
+		arcs = new boolean[nbSommets][nbSommets];
 	}
 	
-	public Graphe(int col, int row) {
-		nbCol = col;
-		nbRow = row;
-		arcs = new boolean[nbRow][nbCol];
+	public Graphe(int nbSommets) {
+		this.nbSommets = nbSommets;
+		arcs = new boolean[nbSommets][nbSommets];
 	}
 	
 	public Graphe(String filename) {
+		int nbSommets = 0;
 		try{
 			FileInputStream fis 	=	new FileInputStream(filename); 
 			InputStreamReader ipsr 	= 	new InputStreamReader(fis);
 			BufferedReader br 		=	new BufferedReader(ipsr);
 			String ligne;
+			// Récupération du nombre de sommets
+			while ((ligne=br.readLine())!=null){
+				if(ligne.startsWith("p")) {
+					String[] split_line = ligne.split(" ");
+					nbSommets = Integer.parseInt(split_line[2]);
+					break;
+				}
+			}
+			this.nbSommets = nbSommets;
+			arcs = new boolean[nbSommets][nbSommets];
+			// Récupération des arcs
 			while ((ligne=br.readLine())!=null){
 				if(ligne.startsWith("e")) {
-					System.out.println(ligne);
+					String[] split_ligne = ligne.split(" ");
+					int from = Integer.parseInt(split_ligne[1]);
+					int to = Integer.parseInt(split_ligne[2]);
+					System.out.print("From : " + from + " To " + to + "\n");
 				}
 			}
 			br.close();
@@ -39,12 +51,8 @@ public class Graphe {
 	}
 	
 	//	GETTERS
-	public int getNbCol() {
-		return nbCol;
-	}
-	
-	public int getNbRow() {
-		return nbRow;
+	public int getNbSommets() {
+		return nbSommets;
 	}
 	
 	public boolean[][] getArcs() {
@@ -52,12 +60,8 @@ public class Graphe {
 	}
 	
 	//	SETTERS
-	public void setNbCol(int nbCol) {
-		this.nbCol = nbCol;
-	}
-	
-	public void setNbRow(int nbRow) {
-		this.nbRow = nbRow;
+	public void setNbSommets(int nbSommets) {
+		this.nbSommets = nbSommets;
 	}
 	
 	public void setArcs(boolean[][] arcs) {
@@ -67,12 +71,11 @@ public class Graphe {
 	@Override
 	public String toString() {
 		super.toString();
-		String ch = "Colonnes  : " + nbCol + "\n" +
-					"Lignes : " + nbRow + "\n" + 
+		String ch = "Sommets  : " + nbSommets + "\n" +
 					"Arcs : \n";
-		for(int i=0 ; i<nbRow ; i++) {
+		for(int i=0 ; i<nbSommets ; i++) {
 			ch += "| ";
-			for(int j=0 ; j<nbCol ; j++) {
+			for(int j=0 ; j<nbSommets ; j++) {
 				ch += arcs[i][j] + " |";
 			}
 			ch += "\n";
@@ -82,16 +85,16 @@ public class Graphe {
 	
 	//	METHODES
 	public void init() {
-		for(int i=0 ; i<nbRow ; i++) {
-			for(int j=0 ; j<nbCol ; j++) {
+		for(int i=0 ; i<nbSommets ; i++) {
+			for(int j=0 ; j<nbSommets ; j++) {
 				arcs[i][j] = false;
 			}
 		}
 	}
 	
 	public boolean isClique() {
-		for(int i=0 ; i<nbRow ; i++) {
-			for(int j=0 ; j<nbCol ; j++) {
+		for(int i=0 ; i<nbSommets ; i++) {
+			for(int j=0 ; j<nbSommets ; j++) {
 				if(arcs[i][j] == false)
 					return false;
 			}
