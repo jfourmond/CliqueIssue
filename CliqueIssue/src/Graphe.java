@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 public class Graphe {
 	private int nbCol;
@@ -16,9 +19,23 @@ public class Graphe {
 		arcs = new boolean[nbRow][nbCol];
 	}
 	
-	// TODO création d'un graphe à partir d'un fichier
 	public Graphe(String filename) {
-		
+		try{
+			FileInputStream fis 	=	new FileInputStream(filename); 
+			InputStreamReader ipsr 	= 	new InputStreamReader(fis);
+			BufferedReader br 		=	new BufferedReader(ipsr);
+			String ligne;
+			while ((ligne=br.readLine())!=null){
+				if(ligne.startsWith("e")) {
+					System.out.println(ligne);
+				}
+			}
+			br.close();
+			ipsr.close();
+			fis.close();
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
 	}
 	
 	//	GETTERS
