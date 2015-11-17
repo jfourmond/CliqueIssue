@@ -7,13 +7,13 @@ public class Graphe {
 	public Graphe() {
 		nbCol = 0;
 		nbRow = 0;
-		arcs = new boolean[nbCol][nbRow];
+		arcs = new boolean[nbRow][nbCol];
 	}
 	
 	public Graphe(int col, int row) {
 		nbCol = col;
 		nbRow = row;
-		arcs = new boolean[nbCol][nbRow];
+		arcs = new boolean[nbRow][nbCol];
 	}
 	
 	// TODO création d'un graphe à partir d'un fichier
@@ -53,9 +53,9 @@ public class Graphe {
 		String ch = "Colonnes  : " + nbCol + "\n" +
 					"Lignes : " + nbRow + "\n" + 
 					"Arcs : \n";
-		for(int i=0 ; i<nbCol ; i++) {
+		for(int i=0 ; i<nbRow ; i++) {
 			ch += "| ";
-			for(int j=0 ; j<nbRow ; j++) {
+			for(int j=0 ; j<nbCol ; j++) {
 				ch += arcs[i][j] + " |";
 			}
 			ch += "\n";
@@ -65,8 +65,8 @@ public class Graphe {
 	
 	//	METHODES
 	public void init() {
-		for(int i=0 ; i<nbCol ; i++) {
-			for(int j=0 ; j<nbRow ; j++) {
+		for(int i=0 ; i<nbRow ; i++) {
+			for(int j=0 ; j<nbCol ; j++) {
 				arcs[i][j] = false;
 			}
 		}
