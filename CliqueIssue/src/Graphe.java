@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class Graphe {
 	private int nbSommets;
@@ -102,4 +103,34 @@ public class Graphe {
 		}
 		return true;
 	}
+	
+	public boolean isCliqueBis(ArrayList<Integer> sommets){
+		for(Integer s1 : sommets){
+			for(Integer s2 : sommets){
+				if(arcs[s1][s2] == false) 
+					return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean existingClique(int nbSom){
+		for(int i = 0; i < nbSom; ++i){ //i est le sommet qu'on ne comptabilise pas pour le moment
+			ArrayList<Integer> sommets = new ArrayList<Integer>();
+			for(int j = 0; j < nbSom; ++j){ // tous les sommets sauf i
+				if(j != i) sommets.add(j);
+			}
+			if(isCliqueBis(sommets)) return true;
+		}
+		return false;
+	}
+	
+	public int cliqueMax(){
+		for(int i = nbSommets; i > 0; --i){
+			if(existingClique(i)) return i;
+		}
+			
+		return 0;
+	}
+	
 }
