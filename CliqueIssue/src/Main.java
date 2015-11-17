@@ -10,5 +10,7 @@ public class Main {
 		
 		Graphe G1 = new Graphe("./src/petitGraphe.clq");
 		System.out.println(G1);
+		
+		System.out.print("La clique max de G1 est de taille : "+G1.cliqueMax());
 	}
 }
