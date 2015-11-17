@@ -40,6 +40,7 @@ public class Graphe {
 					int from = Integer.parseInt(split_ligne[1]);
 					int to = Integer.parseInt(split_ligne[2]);
 					System.out.print("From " + from + " To " + to + "\n");
+					arcs[from][to] = true;
 				}
 			}
 			br.close();
