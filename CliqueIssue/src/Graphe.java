@@ -71,4 +71,14 @@ public class Graphe {
 			}
 		}
 	}
+	
+	public boolean isClique() {
+		for(int i=0 ; i<nbRow ; i++) {
+			for(int j=0 ; j<nbCol ; j++) {
+				if(arcs[i][j] == false)
+					return false;
+			}
+		}
+		return true;
+	}
 }
