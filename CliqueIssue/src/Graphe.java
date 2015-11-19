@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Graphe {
 	private int nbSommets;
@@ -93,9 +94,7 @@ public class Graphe {
 	 */
 	public void init() {
 		for(int i=0 ; i<nbSommets ; i++) {
-			for(int j=0 ; j<nbSommets ; j++) {
-				arcs[i][j] = false;
-			}
+			Arrays.fill(arcs[i], false);
 		}
 	}
 	
@@ -111,6 +110,19 @@ public class Graphe {
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * Retourne le nombre d'arcs partant de ce sommet
+	 * @param sommet : int
+	 * @return int
+	 */
+	public int getNbArcsFrom(int sommet) {
+		int nbArcs = 0;
+		for(int i=0 ; i< nbSommets ; i++) {
+			if(arcs[sommet-1][i] == true) nbArcs++;
+		}
+		return nbArcs;
 	}
 	
 	public boolean isClique(ArrayList<Integer> sommets){
