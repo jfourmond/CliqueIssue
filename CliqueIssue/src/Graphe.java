@@ -181,7 +181,7 @@ public class Graphe {
 	 */
 	public int getWithLessArcs() {
 		int sommet = -1;
-		int min = nbSommets;
+		int min = Integer.MAX_VALUE;
 		for(int i=0 ; i<nbSommets ; i++)  {
 			int nbArcs = getNbArcsFrom(i);
 			if(nbArcs < min) {
@@ -200,7 +200,11 @@ public class Graphe {
 	public static Graphe getClique(Graphe G) {
 		System.out.println("Graphe de taille : " + G.nbSommets);
 		if(G.isClique()) return G;
-		else return getClique(G.getGrapheWithout(G.getWithLessArcs()));
+		else {
+			System.out.println(G);
+			Graphe Gaux = getClique(G.getGrapheWithout(G.getWithLessArcs()));
+			return Gaux;
+		}
 	}
 	
 	public boolean isClique(ArrayList<Integer> sommets){
