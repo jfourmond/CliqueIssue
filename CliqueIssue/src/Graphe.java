@@ -138,9 +138,9 @@ public class Graphe {
 	
 	public int cliqueMax(){
 		if(isClique()) return nbSommets; // Pas besoin de tester toute la matrice si le graphe d'origine est une clique
-		for(int i = nbSommets ; i > 0 ; --i){
+		for(int i = nbSommets ; i > 0 ; --i){	// Le traitement ne s'effectue pas sur tous les sommets ?
 			if(existingClique(i)) return i;
-			// TODO Attention on renvoie le sommet et non la taille de la clique Maximale
+			// TODO Attention on renvoie le sommet et non la taille de la Clique Maximale
 		}
 		return 0;
 	}
