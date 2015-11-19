@@ -116,7 +116,7 @@ public class Graphe {
 	public boolean isCliqueBis(ArrayList<Integer> sommets){
 		for(Integer s1 : sommets){
 			for(Integer s2 : sommets){
-				if(arcs[s1][s2] == false) 
+				if((s1 != s2 && arcs[s1][s2] == false)) 
 					return false;
 			}
 		}
