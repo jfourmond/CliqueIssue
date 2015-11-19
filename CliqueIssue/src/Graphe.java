@@ -123,7 +123,9 @@ public class Graphe {
 		return true;
 	}
 	
+	// TODO Le traitement ne se fait que dans un seul sens, traiter les autres ?
 	public boolean existingClique(int nbSom){
+		System.out.println("Sommet : " + nbSom);
 		for(int i = 0 ; i < nbSom ; ++i){ //i est le sommet qu'on ne comptabilise pas pour le moment
 			ArrayList<Integer> sommets = new ArrayList<Integer>();
 			for(int j = 0; j < nbSom; ++j){ // tous les sommets sauf i
@@ -138,6 +140,7 @@ public class Graphe {
 		if(isClique()) return nbSommets; // Pas besoin de tester toute la matrice si le graphe d'origine est une clique
 		for(int i = nbSommets ; i > 0 ; --i){
 			if(existingClique(i)) return i;
+			// TODO Attention on renvoie le sommet et non la taille de la clique Maximale
 		}
 		return 0;
 	}
