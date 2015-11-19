@@ -113,7 +113,7 @@ public class Graphe {
 		return true;
 	}
 	
-	public boolean isCliqueBis(ArrayList<Integer> sommets){
+	public boolean isClique(ArrayList<Integer> sommets){
 		for(Integer s1 : sommets){
 			for(Integer s2 : sommets){
 				if((s1 != s2 && arcs[s1][s2] == false)) 
@@ -124,18 +124,19 @@ public class Graphe {
 	}
 	
 	public boolean existingClique(int nbSom){
-		for(int i = 0; i < nbSom; ++i){ //i est le sommet qu'on ne comptabilise pas pour le moment
+		for(int i = 0 ; i < nbSom ; ++i){ //i est le sommet qu'on ne comptabilise pas pour le moment
 			ArrayList<Integer> sommets = new ArrayList<Integer>();
 			for(int j = 0; j < nbSom; ++j){ // tous les sommets sauf i
 				if(j != i) sommets.add(j);
 			}
-			if(isCliqueBis(sommets)) return true;
+			if(isClique(sommets)) return true;
 		}
 		return false;
 	}
 	
 	public int cliqueMax(){
-		for(int i = nbSommets; i > 0; --i){
+		if(isClique()) return nbSommets; // Pas besoin de tester toute la matrice si le graphe d'origine est une clique
+		for(int i = nbSommets ; i > 0 ; --i){
 			if(existingClique(i)) return i;
 		}
 		return 0;
