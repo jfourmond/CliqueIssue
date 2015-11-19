@@ -8,9 +8,9 @@ public class Main {
 		System.out.println(G);
 		*/
 		
-		Graphe G1 = new Graphe("./src/petitGraphe.clq");
-		System.out.println(G1);
+		Graphe G = new Graphe("./src/petitGraphe.clq");
+		System.out.println(G);
 		
-		System.out.print("La clique max de G1 est de taille : "+G1.cliqueMax());
+		System.out.print("La clique max de G est de taille : " + G.cliqueMax());
 	}
 }

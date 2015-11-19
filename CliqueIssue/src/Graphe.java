@@ -34,6 +34,7 @@ public class Graphe {
 			}
 			this.nbSommets = nbSommets;
 			arcs = new boolean[nbSommets][nbSommets];
+			init();
 			// Récupération des arcs
 			while ((ligne=br.readLine())!=null){
 				if(ligne.startsWith("e")) {
@@ -87,6 +88,9 @@ public class Graphe {
 	}
 	
 	//	METHODES
+	/**
+	 * Initialise la matrice d'arcs à false
+	 */
 	public void init() {
 		for(int i=0 ; i<nbSommets ; i++) {
 			for(int j=0 ; j<nbSommets ; j++) {
@@ -95,6 +99,10 @@ public class Graphe {
 		}
 	}
 	
+	/**
+	 * Teste si le @link Graphe est une clique
+	 * @return
+	 */
 	public boolean isClique() {
 		for(int i=0 ; i<nbSommets ; i++) {
 			for(int j=0 ; j<nbSommets ; j++) {
