@@ -96,7 +96,7 @@ public class Graphe {
 	public String toString() {
 		super.toString();
 		String ch = "Sommets  : " + nbSommets + "\n" +
-					"Arcs : \n";
+					"Arcs : " + getNbArcs() + "\n";
 		for(int i=0 ; i<nbSommets ; i++) {
 			ch += "| ";
 			for(int j=0 ; j<nbSommets ; j++) {
@@ -129,6 +129,16 @@ public class Graphe {
 			}
 		}
 		return true;
+	}
+	
+	public int getNbArcs() {
+		int nbArcs = 0;
+		for(int i=0 ; i<nbSommets ; i++) {
+			for(int j=0 ; j<nbSommets ; j++) {
+				if(arcs[i][j] == true) nbArcs++;
+			}
+		}
+		return (nbArcs/2);
 	}
 	
 	/**
@@ -182,7 +192,13 @@ public class Graphe {
 		return sommet;
 	}
 	
+	/**
+	 * Retoune un {@link Graphe} etant une clique à partir du {@link Graphe} G
+	 * @param G : {@link Graphe}
+	 * @return {@link Graphe}
+	 */
 	public static Graphe getClique(Graphe G) {
+		System.out.println("Graphe de taille : " + G.nbSommets);
 		if(G.isClique()) return G;
 		else return getClique(G.getGrapheWithout(G.getWithLessArcs()));
 	}
@@ -217,6 +233,5 @@ public class Graphe {
 			// TODO Attention on renvoie le sommet et non la taille de la Clique Maximale
 		}
 		return 0;
-	}
-	
+	}	
 }

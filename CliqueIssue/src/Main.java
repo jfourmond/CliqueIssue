@@ -11,16 +11,11 @@ public class Main {
 		 * (la solution optimale).
 		 */
 		
-		//Graphe G = new Graphe("./src/petitGraphe.clq");
+		// Graphe G = new Graphe("./src/petitGraphe.clq");
 		Graphe G = new Graphe("./src/C125.9.clq");
-		
-		if(G.isClique())
-			System.out.println("G est une clique");
-		else System.out.println("G n'est pas une clique");
-		
+		System.out.println(G);
 		// System.out.println("La clique max de G est de taille : " + G.cliqueMax());
 		System.out.println("Sommet avec le moins d'arcs : " + (G.getWithLessArcs()+1));
-		
 		
 		Graphe aux = Graphe.getClique(G);
 		if(aux.isClique())
@@ -28,8 +23,6 @@ public class Main {
 		else System.out.println("Aux n'est pas une clique");
 		
 		/*
-		
-		// System.out.println(G1);
 		System.out.println(G1);
 		
 		if(G1.isClique())
