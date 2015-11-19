@@ -80,7 +80,7 @@ public class Graphe {
 		for(int i=0 ; i<nbSommets ; i++) {
 			ch += "| ";
 			for(int j=0 ; j<nbSommets ; j++) {
-				ch += arcs[i][j] + " |";
+				ch += (arcs[i][j] ? 1 : 0) + " | ";
 			}
 			ch += "\n";
 		}

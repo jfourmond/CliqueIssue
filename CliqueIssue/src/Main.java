@@ -19,6 +19,7 @@ public class Main {
 		
 		Graphe G1 = new Graphe("./src/C125.9.clq");
 		// System.out.println(G1);
+		System.out.println(G1);
 		
 		if(G1.isClique())
 			System.out.println("G1 est une clique");
