@@ -201,7 +201,7 @@ public class Graphe {
 		System.out.println("Graphe de taille : " + G.nbSommets);
 		if(G.isClique()) return G;
 		else {
-			System.out.println(G);
+			// System.out.println(G);
 			Graphe Gaux = getClique(G.getGrapheWithout(G.getWithLessArcs()));
 			return Gaux;
 		}

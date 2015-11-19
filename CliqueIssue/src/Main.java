@@ -12,7 +12,7 @@ public class Main {
 		 */
 		
 		// Graphe G = new Graphe("./src/petitGraphe.clq");
-		Graphe G = new Graphe("./src/C125.9.clq");
+		Graphe G = new Graphe("./src/C1000.9.clq");
 		System.out.println("Sommets  : " + G.getNbSommets() + "\n" +
 				"Arcs : " + G.getNbArcs() + "\n");
 		// System.out.println("La clique max de G est de taille : " + G.cliqueMax());
