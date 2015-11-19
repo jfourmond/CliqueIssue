@@ -13,20 +13,18 @@ public class Main {
 		
 		//Graphe G = new Graphe("./src/petitGraphe.clq");
 		Graphe G = new Graphe("./src/C125.9.clq");
-		System.out.println(G);
 		
 		if(G.isClique())
 			System.out.println("G est une clique");
 		else System.out.println("G n'est pas une clique");
 		
-		System.out.println("La clique max de G est de taille : " + G.cliqueMax());
+		// System.out.println("La clique max de G est de taille : " + G.cliqueMax());
 		System.out.println("Sommet avec le moins d'arcs : " + (G.getWithLessArcs()+1));
 		
 		
 		Graphe aux = Graphe.getClique(G);
-		System.out.println("\n" + aux);
 		if(aux.isClique())
-			System.out.println("Aux est une clique");
+			System.out.println("Aux est une clique (" + aux.getNbSommets() + ")");
 		else System.out.println("Aux n'est pas une clique");
 		
 		/*
