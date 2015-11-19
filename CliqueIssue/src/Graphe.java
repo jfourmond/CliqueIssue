@@ -41,7 +41,7 @@ public class Graphe {
 					String[] split_ligne = ligne.split(" ");
 					int from = Integer.parseInt(split_ligne[1]);
 					int to = Integer.parseInt(split_ligne[2]);
-					System.out.print("From " + from + " To " + to + "\n");
+					// System.out.print("From " + from + " To " + to + "\n");
 					arcs[from-1][to-1] = true;
 					arcs[to-1][from-1] = true;
 				}
