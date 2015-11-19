@@ -11,6 +11,10 @@ public class Main {
 		Graphe G = new Graphe("./src/petitGraphe.clq");
 		System.out.println(G);
 		
+		if(G.isClique())
+			System.out.println("G est une clique");
+		else System.out.println("G n'est pas une clique");
+		
 		System.out.print("La clique max de G est de taille : " + G.cliqueMax());
 	}
 }

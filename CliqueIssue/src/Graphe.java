@@ -101,12 +101,12 @@ public class Graphe {
 	
 	/**
 	 * Teste si le @link Graphe est une clique
-	 * @return
+	 * @return <code>true</code> si le Graphe est une clique, <code>false</code> sinon
 	 */
 	public boolean isClique() {
 		for(int i=0 ; i<nbSommets ; i++) {
-			for(int j=0 ; j<nbSommets ; j++) {
-				if(arcs[i][j] == false)
+			for(int j=0 ; j<nbSommets ; j++) { 
+				if((i != j && arcs[i][j] == false))
 					return false;
 			}
 		}
@@ -138,7 +138,6 @@ public class Graphe {
 		for(int i = nbSommets; i > 0; --i){
 			if(existingClique(i)) return i;
 		}
-			
 		return 0;
 	}
 	
