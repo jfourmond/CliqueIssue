@@ -12,19 +12,17 @@ public class Main {
 		 */
 		 
 		
-		Graphe G = new Graphe("./src/petitGraphe.clq");
-		// Graphe G = new Graphe("./src/C1000.9.clq");
+		// Graphe G = new Graphe("./src/petitGraphe.clq");
+		Graphe G = new Graphe("./src/C1000.9.clq");
 		System.out.println("Sommets  : " + G.getNbSommets() + "\n" +
 				"Arcs : " + G.getNbArcs() + "\n");
 		
-		System.out.println(G);
+		// System.out.println(G);
 		
-		int n1 = G.getNotNbArcsFrom(0);
-		int n2 = G.getNbArcsFrom(0);
-		int n3 = G.getWithLessArcs();
+		int max = G.getWithMostArcs();
+		int min = G.getWithLessArcs();
 		
-		System.out.println(n1);
-		System.out.println(n2);
-		System.out.println(n3);
+		System.out.println("Min : " + min);
+		System.out.println("Max : " + max);
 	}
 }
