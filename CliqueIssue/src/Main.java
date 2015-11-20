@@ -10,27 +10,21 @@ public class Main {
 		 * Etant donné un graphe G, le problème de clique maximum (MaxClique) consiste à déterminer une clique maximum de G
 		 * (la solution optimale).
 		 */
+		 
 		
-		// Graphe G = new Graphe("./src/petitGraphe.clq");
-		Graphe G = new Graphe("./src/C1000.9.clq");
+		Graphe G = new Graphe("./src/petitGraphe.clq");
+		// Graphe G = new Graphe("./src/C1000.9.clq");
 		System.out.println("Sommets  : " + G.getNbSommets() + "\n" +
 				"Arcs : " + G.getNbArcs() + "\n");
-		// System.out.println("La clique max de G est de taille : " + G.cliqueMax());
-		System.out.println("Sommet avec le moins d'arcs : " + (G.getWithLessArcs()+1));
 		
-		Graphe aux = Graphe.getClique(G);
-		if(aux.isClique())
-			System.out.println("Aux est une clique (" + aux.getNbSommets() + ")");
-		else System.out.println("Aux n'est pas une clique");
+		System.out.println(G);
 		
-		/*
-		System.out.println(G1);
+		int n1 = G.getNotNbArcsFrom(0);
+		int n2 = G.getNbArcsFrom(0);
+		int n3 = G.getWithLessArcs();
 		
-		if(G1.isClique())
-			System.out.println("G1 est une clique");
-		else System.out.println("G1 n'est pas une clique");
-		
-		System.out.print("La clique max de G1 est de taille : " + G1.cliqueMax());
-		*/
+		System.out.println(n1);
+		System.out.println(n2);
+		System.out.println(n3);
 	}
 }

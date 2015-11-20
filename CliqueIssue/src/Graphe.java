@@ -155,6 +155,19 @@ public class Graphe {
 	}
 	
 	/**
+	 * Retourne le nombre d'arcs absent du sommet passé en paramètre
+	 * @param sommet : int
+	 * @return int
+	 */
+	public int getNotNbArcsFrom(int sommet) {
+		int notNbArcs = 0;
+		for(int i=0 ; i< nbSommets ; i++) {
+			if(i != sommet && arcs[sommet][i] == false) notNbArcs++;
+		}
+		return notNbArcs;
+	}
+	
+	/**
 	 * Retoune un graphe sans le sommet passé en paramètre
 	 * @param sommet : int
 	 * @return {@link Graphe}
@@ -182,10 +195,37 @@ public class Graphe {
 	public int getWithLessArcs() {
 		int sommet = -1;
 		int min = Integer.MAX_VALUE;
+		int max = 0;
+		/*
 		for(int i=0 ; i<nbSommets ; i++)  {
 			int nbArcs = getNbArcsFrom(i);
 			if(nbArcs < min) {
 				min = nbArcs;
+				sommet = i;
+			}
+		}
+		*/
+		for(int i=0 ; i<nbSommets ; i++) {
+			int nbNotArcs = getNotNbArcsFrom(i);
+			if(nbNotArcs > max) {
+				max = nbNotArcs;
+				sommet = i;
+			}
+		}
+		return sommet;
+	}
+	
+	/**
+	 * Retourne le sommet ayant le plus d'arcs
+	 * @return sommet : int
+	 */
+	public int getWithMostArcs() {
+		int sommet = -1;
+		int max = 0;
+		for(int i=0 ; i<nbSommets ; i++) {
+			int nbArcs = getNbArcsFrom(i);
+			if(nbArcs > max) {
+				max = nbArcs;
 				sommet = i;
 			}
 		}
@@ -198,10 +238,8 @@ public class Graphe {
 	 * @return {@link Graphe}
 	 */
 	public static Graphe getClique(Graphe G) {
-		System.out.println("Graphe de taille : " + G.nbSommets);
 		if(G.isClique()) return G;
 		else {
-			// System.out.println(G);
 			Graphe Gaux = getClique(G.getGrapheWithout(G.getWithLessArcs()));
 			return Gaux;
 		}
