@@ -118,7 +118,7 @@ public class Graphe {
 	}
 	
 	/**
-	 * Teste si le {@link Graphe} est une clique
+	 * Teste si le {@link Graphe} courant est une clique
 	 * @return <code>true</code> si le Graphe est une clique, <code>false</code> sinon
 	 */
 	public boolean isClique() {
@@ -131,6 +131,10 @@ public class Graphe {
 		return true;
 	}
 	
+	/**
+	 * Retourne le nombre d'arcs du {@link Graphe} courant
+	 * @return int
+	 */
 	public int getNbArcs() {
 		int nbArcs = 0;
 		for(int i=0 ; i<nbSommets ; i++) {
@@ -176,7 +180,7 @@ public class Graphe {
 	public Graphe getGrapheWithout(int sommet) {
 		Graphe G = new Graphe(this.nbSommets-1);
 		boolean new_arcs[][] = new boolean[G.nbSommets][G.nbSommets];
-		// On récupère la première partie
+		/*
 		int i;
 		for(i=0 ; i<sommet ; i++) {
 			new_arcs[i] = this.arcs[i];
@@ -184,6 +188,23 @@ public class Graphe {
 		// On saute le sommet et continue le traitement (si il y en a encore)
 		for(i = sommet+1 ; i<this.nbSommets ; i++) {
 			new_arcs[i-1] = this.arcs[i];
+		} */
+		for(int i=0 ; i<this.nbSommets ; i++) {
+			for(int j=0 ; j<this.nbSommets ; j++) {
+				if(i != sommet && j != sommet) {
+					if (i > sommet) {
+						if(j > sommet)
+							new_arcs[i-1][j-1] = this.arcs[i][j];
+						else 
+							new_arcs[i-1][j] = this.arcs[i][j];
+					} else {
+						if(j > sommet)
+							new_arcs[i][j-1] = this.arcs[i][j];
+						else
+							new_arcs[i][j] = this.arcs[i][j];
+					}
+				}
+			}
 		}
 		G.setArcs(new_arcs);
 		return G;
