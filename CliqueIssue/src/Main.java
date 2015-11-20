@@ -10,14 +10,16 @@ public class Main {
 		 * Etant donné un graphe G, le problème de clique maximum (MaxClique) consiste à déterminer une clique maximum de G
 		 * (la solution optimale).
 		 */
-		 
+		
+		// TODO soucis actuel : l'algorithme supprime tous les sommets qui ont un sommet en moins.
+		
 		
 		// Graphe G = new Graphe("./src/petitGraphe.clq");
-		Graphe G = new Graphe("./src/C1000.9.clq");
+		Graphe G = new Graphe("./src/C125.9.clq");
 		System.out.println("Sommets  : " + G.getNbSommets() + "\n" +
 				"Arcs : " + G.getNbArcs() + "\n");
 		
-		// System.out.println(G);
+		System.out.println(G);
 		
 		int max = G.getWithMostArcs();
 		int min = G.getWithLessArcs();
