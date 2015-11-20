@@ -11,11 +11,12 @@ public class Main {
 		 * (la solution optimale).
 		 */
 		
-		// TODO soucis actuel : l'algorithme supprime tous les sommets qui ont un sommet en moins.
+		// TODO On admet que tous les graphes n'admettent pas de sommets récursif (d'un sommet à lui-même)
+		// TODO Soucis actuel : l'algorithme supprime tous les sommets qui ont un sommet en moins.
 		
 		
 		// Graphe G = new Graphe("./src/petitGraphe.clq");
-		Graphe G = new Graphe("./src/C125.9.clq");
+		Graphe G = new Graphe("./src/testGraphe25.txt");
 		System.out.println("Sommets  : " + G.getNbSommets() + "\n" +
 				"Arcs : " + G.getNbArcs() + "\n");
 		
@@ -26,5 +27,8 @@ public class Main {
 		
 		System.out.println("Min : " + min);
 		System.out.println("Max : " + max);
+		
+		Graphe G1 = Graphe.getClique(G);
+		System.out.println(G1);
 	}
 }

@@ -172,6 +172,7 @@ public class Graphe {
 	 * @param sommet : int
 	 * @return {@link Graphe}
 	 */
+	// TODO Le soucis vient de la suppression d'un sommet, on supprime la colonne et non la ligne (PAS BIEN)
 	public Graphe getGrapheWithout(int sommet) {
 		Graphe G = new Graphe(this.nbSommets-1);
 		boolean new_arcs[][] = new boolean[G.nbSommets][G.nbSommets];
@@ -194,21 +195,12 @@ public class Graphe {
 	 */
 	public int getWithLessArcs() {
 		int sommet = -1;
-		int min = Integer.MAX_VALUE;
-		int max = 0;
-		/*
-		for(int i=0 ; i<nbSommets ; i++)  {
-			int nbArcs = getNbArcsFrom(i);
-			if(nbArcs < min) {
-				min = nbArcs;
-				sommet = i;
-			}
-		}
-		*/
+		int min = 0;
+
 		for(int i=0 ; i<nbSommets ; i++) {
 			int nbNotArcs = getNotNbArcsFrom(i);
-			if(nbNotArcs > max) {
-				max = nbNotArcs;
+			if(nbNotArcs > min) {
+				min = nbNotArcs;
 				sommet = i;
 			}
 		}
