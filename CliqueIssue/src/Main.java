@@ -31,8 +31,8 @@ public class Main {
 		*/
 		
 		G.start_getting_cliques();
-		//G.afficheListeCliques();
+		G.afficheListeCliques();
 		
-		//System.out.println("Affichage réussi !");
+		System.out.println("Affichage réussi !");
 	}
 }

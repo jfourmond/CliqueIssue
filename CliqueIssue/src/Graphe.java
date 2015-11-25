@@ -26,6 +26,10 @@ public class Graphe {
 		this.nbSommets = nbSommets;
 		arcs = new boolean[nbSommets][nbSommets];
 		listeCliques = new ArrayList<ArrayList<Integer>>();
+		for(int i = 0; i < nbSommets; ++i){
+			ArrayList<Integer> l = new ArrayList<Integer>();
+			listeCliques.add(l);
+		}
 	}
 	
 	/**
@@ -49,6 +53,15 @@ public class Graphe {
 			}
 			this.nbSommets = nbSommets;
 			arcs = new boolean[nbSommets][nbSommets];
+			
+			//listeClique à créér aussi
+			listeCliques = new ArrayList<ArrayList<Integer>>();
+			for(int i = 0; i < nbSommets; ++i){
+				ArrayList<Integer> l = new ArrayList<Integer>();
+				listeCliques.add(l);
+			}
+			
+			
 			init();
 			// Récupération des arcs
 			while ((ligne=br.readLine())!=null){
@@ -475,9 +488,7 @@ public class Graphe {
 		}
 		System.out.println("");
 		
-		System.out.println("Entree dans getEverySingleClique");
 		getEverySingleClique(indices_pionniers);
-		System.out.println("Sortie de getEverySingleClique");
 	}
 	
 	//Affiche les cliques contenues dans listeCliques
@@ -485,12 +496,13 @@ public class Graphe {
 		if(!getListeCliques().isEmpty()){
 			for(ArrayList<Integer> clique : getListeCliques()){
 				for(Integer i : clique){
-					System.out.print(i);
+					System.out.print("Val"+i);
 				}
 				System.out.println("");
 			}
+		} else {
+			System.out.println("ListeCliques est vide...");
 		}
-		
 	}
 	
 	
