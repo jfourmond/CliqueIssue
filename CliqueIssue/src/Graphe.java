@@ -134,6 +134,10 @@ public class Graphe {
 		}
 	}
 	
+	/**
+	 * Retouche une liste des sommets du {@link Graphe} courant
+	 * @return {@link ArrayList}
+	 */
 	public ArrayList<Integer> getSommets() {
 		ArrayList<Integer> result = new ArrayList<>();
 		for(int i=0 ; i<nbSommets ; i++)
