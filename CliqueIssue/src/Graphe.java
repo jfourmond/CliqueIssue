@@ -140,14 +140,11 @@ public class Graphe {
 			Arrays.fill(arcs[i], false);
 		}
 	}
-<<<<<<< HEAD
-=======
-	
+
 	/**
 	 * Retouche une liste des sommets du {@link Graphe} courant
 	 * @return {@link ArrayList}
 	 */
->>>>>>> branch 'master' of https://github.com/jfourmond/CliqueIssue.git
 	public ArrayList<Integer> getSommets() {
 		ArrayList<Integer> result = new ArrayList<>();
 		for(int i=0 ; i<nbSommets ; i++)
