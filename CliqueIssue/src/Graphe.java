@@ -23,6 +23,14 @@ public class Graphe {
 	public Graphe(int nbSommets) {
 		this.nbSommets = nbSommets;
 		arcs = new boolean[nbSommets][nbSommets];
+<<<<<<< HEAD
+=======
+		listeCliques = new ArrayList<ArrayList<Integer>>();
+		for(int i = 0; i < nbSommets; ++i){
+			ArrayList<Integer> l = new ArrayList<Integer>();
+			listeCliques.add(l);
+		}
+>>>>>>> branch 'master' of https://github.com/jfourmond/CliqueIssue.git
 	}
 	
 	/**
@@ -46,6 +54,15 @@ public class Graphe {
 			}
 			this.nbSommets = nbSommets;
 			arcs = new boolean[nbSommets][nbSommets];
+			
+			//listeClique à créér aussi
+			listeCliques = new ArrayList<ArrayList<Integer>>();
+			for(int i = 0; i < nbSommets; ++i){
+				ArrayList<Integer> l = new ArrayList<Integer>();
+				listeCliques.add(l);
+			}
+			
+			
 			init();
 			// Récupération des arcs
 			while ((ligne=br.readLine())!=null){
@@ -495,8 +512,26 @@ public class Graphe {
 			testclique1.add(4);
 		if(isClique(testclique1)) res.add(testclique1);
 		
+<<<<<<< HEAD
 		
 		
 		return res;
+=======
+		getEverySingleClique(indices_pionniers);
+	}
+	
+	//Affiche les cliques contenues dans listeCliques
+	void afficheListeCliques(){
+		if(!getListeCliques().isEmpty()){
+			for(ArrayList<Integer> clique : getListeCliques()){
+				for(Integer i : clique){
+					System.out.print("Val"+i);
+				}
+				System.out.println("");
+			}
+		} else {
+			System.out.println("ListeCliques est vide...");
+		}
+>>>>>>> branch 'master' of https://github.com/jfourmond/CliqueIssue.git
 	}
 }

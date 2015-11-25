@@ -32,9 +32,14 @@ public class Main {
 		} else System.out.println("G1 n'est pas une clique" + G1.getNbSommets());
 		*/
 		
+<<<<<<< HEAD
 		//G.start_getting_cliques();
 		//G.afficheListeCliques();
+=======
+		G.start_getting_cliques();
+		G.afficheListeCliques();
+>>>>>>> branch 'master' of https://github.com/jfourmond/CliqueIssue.git
 		
-		//System.out.println("Affichage réussi !");
+		System.out.println("Affichage réussi !");
 	}
 }
