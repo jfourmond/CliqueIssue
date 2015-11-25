@@ -328,13 +328,21 @@ public class Graphe {
 		// Liste des sommets déjà analysés, menant à une extension valide de compsub et qui ne devraient pas être utilisées
 		ArrayList<Integer> not = new ArrayList<>();
 		// On prend le premier sommet avec le plus de voisin
-		int sommet = this.getWithMostArcs();
+		int sommet;
+		sommet = this.getWithMostArcs();
 		System.out.println("Sommet avec le plus de voisins : " + sommet);
 		// On l'ajoute à compsub
 		compsub.add(sommet);
-		ArrayList<Integer> neightbors = getNeightbors(sommet);
+		
+		// Voisins du sommet courant
+		ArrayList<Integer> neightbors;
+		neightbors = getNeightbors(sommet);
 		System.out.println("Voisins de " + sommet + " : " + neightbors);
+		// Les candidats susceptibles de former une clique sont les voisins du sommet
 		candidats = neightbors;
+		
+		sommet = getWithMostArcs(candidats);
+		System.out.println("Sommet avec le plus de voisins de " + candidats + " : " + sommet);
 		
 		/**
 		 * Une clique est trouvée si :

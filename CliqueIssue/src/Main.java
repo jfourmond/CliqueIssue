@@ -1,3 +1,4 @@
+// Pour executer en ligne de commande : java -cp bin Main
 
 public class Main {
 
