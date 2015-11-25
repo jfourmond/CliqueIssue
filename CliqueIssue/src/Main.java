@@ -11,14 +11,12 @@ public class Main {
 		 * Etant donné un graphe G, le problème de clique maximum (MaxClique) consiste à déterminer une clique maximum de G
 		 * (la solution optimale).
 		 */
+		 
 		
-		// TODO On admet que tous les graphes n'admettent pas de sommets récursif (d'un sommet à lui-même)
-		
-		Graphe G = new Graphe("./src/petitGraphe.clq");
-		System.out.println(G);
-		// Graphe G = new Graphe("./src/C125.9.clq");
-		
-		G.traitement();
+		/*
+		 Graphe G = new Graphe("./src/petitGraphe.clq");
+		 */
+		Graphe G = new Graphe("./src/C125.9.clq");
 		
 		/*
 		Graphe G1 = Graphe.getClique(G);
