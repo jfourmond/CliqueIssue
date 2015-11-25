@@ -342,32 +342,26 @@ public class Graphe {
 		// Les candidats susceptibles de former une clique sont les voisins du sommet
 		candidats = neightbors;
 		
-		sommet = G.getWithMostArcs(candidats);
-		compsub.add(sommet);
-		
-		System.out.println("Sommet avec le plus de voisins de " + candidats + " : " + sommet);
-		neightbors = G.getNeightbors(sommet);
-		candidats = intersection(candidats, neightbors);
-		System.out.println("Voisins de " + sommet + " : " + neightbors);
-		System.out.println("Intersection : " + candidats);
-		
-		sommet = G.getWithMostArcs(candidats);
-		compsub.add(sommet);
-		
-		System.out.println("Sommet avec le plus de voisins de " + candidats + " : " + sommet);
-		neightbors = G.getNeightbors(sommet);
-		candidats = intersection(candidats, neightbors);
-		System.out.println("Voisins de " + sommet + " : " + neightbors);
-		System.out.println("Intersection : " + candidats);
-		
-		sommet = G.getWithMostArcs(candidats);
-		compsub.add(sommet);
-		
 		/**
 		 * Une clique est trouvée si :
 		 * 	il n'y a pas plus de candidats ET
 		 * 	il n'y a plus de sommets dans not (sinon ce n'est pas une clique maximale)
 		 */
+		while(true) {
+			sommet = G.getWithMostArcs(candidats);
+			compsub.add(sommet);
+			
+			System.out.println("Sommet avec le plus de voisins de " + candidats + " : " + sommet);
+			neightbors = G.getNeightbors(sommet);
+			candidats = intersection(candidats, neightbors);
+			System.out.println("Voisins de " + sommet + " : " + neightbors);
+			System.out.println("Intersection : " + candidats);
+			
+			if(candidats.isEmpty() && not.isEmpty()) break;
+		}
+		System.out.println("Clique : " + compsub.size());
+		
+		
 	}
 	
 	public static void traitement_recursif(Graphe G, ArrayList<Integer> P, ArrayList<Integer> X) {
