@@ -414,8 +414,12 @@ public class Graphe {
 	//Retourne une liste de listes d'indices où une liste d'entiers correspond aux colonnes et lignes d'une clique
 	ArrayList<ArrayList<Integer>> getAllCliques(){
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
-		
-		
+			ArrayList<Integer> testclique1 = new ArrayList<Integer>();
+			testclique1.add(1);
+			testclique1.add(2);
+			testclique1.add(3);
+			testclique1.add(4);
+		if(isClique(testclique1)) res.add(testclique1);
 		
 		
 		return res;
