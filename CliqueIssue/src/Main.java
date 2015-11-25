@@ -17,8 +17,12 @@ public class Main {
 		Graphe G = new Graphe("./src/petitGraphe.clq");
 		// Graphe G = new Graphe("./src/C125.9.clq");
 		System.out.println(G);
-		G.traitement();
 		
+		System.out.println("\n\nTRAITEMENT RECURSIF\n");
+		Graphe.traitement_recursif(G, null, null);
+		
+		System.out.println("\n\nTRAITEMENT ITERATIF\n");
+		Graphe.traitement(G);
 		/*
 		Graphe G1 = Graphe.getClique(G);
 		if(G1.isClique()) {
