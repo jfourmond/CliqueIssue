@@ -433,6 +433,12 @@ public class Graphe {
 	}
 	*/
 	
+	/**
+	 * Traitement Recursif d'une recherche de clique maximale
+	 * @param Result : {@link ArrayList}
+	 * @param Candidates : {@link ArrayList}
+	 * @param Exclude : {@link ArrayList}
+	 */
 	public void traitement_recursif(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
 		if(Result == null) 
 			Result = new ArrayList<>();
@@ -444,12 +450,10 @@ public class Graphe {
 		}
 		while(!Candidates.isEmpty()) {
 			int x = Candidates.get(0);
-			System.out.println("Sur le sommet : " + x);
-			ArrayList<Integer> result = Result;
-			result.add(x);
-			traitement_recursif(result, intersection(Candidates, getNeightbors(x)), intersection(Exclude, getNeightbors(x)));
+			Result = union(Result, x);
+			traitement_recursif(Result, intersection(Candidates, getNeightbors(x)), intersection(Exclude, getNeightbors(x)));
 			Candidates.remove(Candidates.indexOf(x));
-			Exclude.add(x);
+			Exclude = union(Exclude, x);
 		}
 	}
 	
@@ -468,6 +472,18 @@ public class Graphe {
 			if(!result.contains(x))
 				result.add(x);
 		}
+		return result;
+	}
+	
+	/**
+	 * Effectue l'intersection entre un {@link ArrayList} et un {@link Integer}
+	 * @param A : {@link ArrayList}
+	 * @param x : {@link Integer}
+	 * @return {@link ArrayList}
+	 */
+	private static ArrayList<Integer> union(ArrayList<Integer> A, int x) {
+		ArrayList<Integer> result = A;
+		if(!result.contains(x)) result.add(x);
 		return result;
 	}
 	
