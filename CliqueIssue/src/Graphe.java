@@ -321,7 +321,7 @@ public class Graphe {
 		return 0;
 	}
 	
-	public void traitement() {
+	public static void traitement(Graphe G) {
 		// Liste des sommets déjà compris comme partie de la clique
 		ArrayList<Integer> compsub = new ArrayList<>(); 
 		// Liste des sommets candidats, connectés avec tous les noeuds de compsub
@@ -330,20 +330,39 @@ public class Graphe {
 		ArrayList<Integer> not = new ArrayList<>();
 		// On prend le premier sommet avec le plus de voisin
 		int sommet;
-		sommet = this.getWithMostArcs();
+		
+		sommet = G.getWithMostArcs();
 		System.out.println("Sommet avec le plus de voisins : " + sommet);
 		// On l'ajoute à compsub
 		compsub.add(sommet);
 		
 		// Voisins du sommet courant
 		ArrayList<Integer> neightbors;
-		neightbors = getNeightbors(sommet);
+		neightbors = G.getNeightbors(sommet);
 		System.out.println("Voisins de " + sommet + " : " + neightbors);
 		// Les candidats susceptibles de former une clique sont les voisins du sommet
 		candidats = neightbors;
 		
-		sommet = getWithMostArcs(candidats);
+		sommet = G.getWithMostArcs(candidats);
+		compsub.add(sommet);
+		
 		System.out.println("Sommet avec le plus de voisins de " + candidats + " : " + sommet);
+		neightbors = G.getNeightbors(sommet);
+		candidats = intersection(candidats, neightbors);
+		System.out.println("Voisins de " + sommet + " : " + neightbors);
+		System.out.println("Intersection : " + candidats);
+		
+		sommet = G.getWithMostArcs(candidats);
+		compsub.add(sommet);
+		
+		System.out.println("Sommet avec le plus de voisins de " + candidats + " : " + sommet);
+		neightbors = G.getNeightbors(sommet);
+		candidats = intersection(candidats, neightbors);
+		System.out.println("Voisins de " + sommet + " : " + neightbors);
+		System.out.println("Intersection : " + candidats);
+		
+		sommet = G.getWithMostArcs(candidats);
+		compsub.add(sommet);
 		
 		/**
 		 * Une clique est trouvée si :
@@ -352,6 +371,7 @@ public class Graphe {
 		 */
 	}
 	
+<<<<<<< HEAD
 	
 	//Retourne une liste de listes d'indices où une liste d'entiers correspond aux colonnes et lignes d'une clique
 	ArrayList<ArrayList<Integer>> getAllCliques(){
@@ -365,4 +385,50 @@ public class Graphe {
 	}
 	
 	
+=======
+	public static void traitement_recursif(Graphe G, ArrayList<Integer> P, ArrayList<Integer> X) {
+		// Liste des sommets déjà compris comme partie de la clique
+		ArrayList<Integer> compsub = new ArrayList<>(); 
+		// Liste des sommets candidats, connectés avec tous les noeuds de compsub
+		ArrayList<Integer> candidats = new ArrayList<>();
+		// Liste des sommets déjà analysés, menant à une extension valide de compsub et qui ne devraient pas être utilisées
+		ArrayList<Integer> not = new ArrayList<>();
+		
+		int sommet;
+		
+		if(P == null && X == null) {		// Premier tour de procédure	
+			sommet = G.getWithMostArcs(); 	// On prend le sommet avec le plus de voisins
+			System.out.println("Sommet avec le plus de voisins : " + sommet);
+			// On l'ajoute à compsub
+			compsub.add(sommet);
+			
+			// Voisins du sommet courant
+			candidats = G.getNeightbors(sommet);
+			System.out.println("Voisins de " + sommet + " : " + candidats);
+			return;
+		}
+		if(P.isEmpty() && X.isEmpty()) {
+			System.out.println("Clique Maximal");
+			return;
+		}
+		return;
+			
+	}
+	
+	/**
+	 * Effectue l'intersection de deux {@link ArrayList}
+	 * @param A : {@link ArrayList}
+	 * @param B : {@link ArrayList}
+	 * @return {@link ArrayList}
+	 */
+	private static ArrayList<Integer> intersection(ArrayList<Integer> A, ArrayList<Integer> B) {
+		ArrayList<Integer> result = new ArrayList();
+        for (int x : A) {
+            if((B).contains(x)) {
+                result.add(x);
+            }
+        }
+        return result;
+	}
+>>>>>>> branch 'master' of https://github.com/jfourmond/CliqueIssue.git
 }
