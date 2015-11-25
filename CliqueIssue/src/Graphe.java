@@ -350,9 +350,10 @@ public class Graphe {
 		 */
 		while(true) {
 			sommet = G.getWithMostArcs(candidats);
+			System.out.println("Sommet avec le plus de voisins de " + candidats + " : " + sommet);
+			
 			compsub.add(sommet);
 			
-			System.out.println("Sommet avec le plus de voisins de " + candidats + " : " + sommet);
 			neightbors = G.getNeightbors(sommet);
 			candidats = intersection(candidats, neightbors);
 			System.out.println("Voisins de " + sommet + " : " + neightbors);
@@ -360,6 +361,7 @@ public class Graphe {
 			
 			if(candidats.isEmpty() && not.isEmpty()) break;
 		}
+		System.out.println("La clique : " + compsub);
 		System.out.println("Clique : " + compsub.size());
 		
 		
