@@ -17,9 +17,11 @@ public class Main {
 		 */
 		Graphe G = new Graphe("./src/C125.9.clq");
 		
+		/*
 		Graphe G1 = Graphe.getClique(G);
 		if(G1.isClique()) {
 			System.out.println("G1 est une clique de " + G1.getNbSommets());
 		} else System.out.println("G1 n'est pas une clique" + G1.getNbSommets());
+		*/
 	}
 }
