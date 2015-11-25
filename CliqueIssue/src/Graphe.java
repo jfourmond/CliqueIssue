@@ -399,6 +399,7 @@ public class Graphe {
 			System.out.println("Voisins de " + sommet + " : " + candidats);
 			return;
 		}
+		
 		if(P.isEmpty() && X.isEmpty()) {
 			System.out.println("Clique Maximal");
 			return;
