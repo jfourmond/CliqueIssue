@@ -18,11 +18,13 @@ public class Main {
 		// Graphe G = new Graphe("./src/C125.9.clq");
 		System.out.println(G);
 		
-		System.out.println("\n\nTRAITEMENT RECURSIF\n");
-		Graphe.traitement_recursif(G, null, null);
+		// System.out.println("\n\nTRAITEMENT RECURSIF\n");
+		// Graphe.traitement_recursif(G, null, null);
 		
-		System.out.println("\n\nTRAITEMENT ITERATIF\n");
-		Graphe.traitement(G);
+		// System.out.println("\n\nTRAITEMENT ITERATIF\n");
+		// Graphe.traitement(G);
+		
+		G.traitement_recursif(null, G.getSommets(), null);
 		/*
 		Graphe G1 = Graphe.getClique(G);
 		if(G1.isClique()) {
@@ -30,7 +32,7 @@ public class Main {
 		} else System.out.println("G1 n'est pas une clique" + G1.getNbSommets());
 		*/
 		
-		G.start_getting_cliques();
+		//G.start_getting_cliques();
 		//G.afficheListeCliques();
 		
 		//System.out.println("Affichage réussi !");
