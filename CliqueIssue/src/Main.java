@@ -13,12 +13,17 @@ public class Main {
 		
 		// TODO On admet que tous les graphes n'admettent pas de sommets récursif (d'un sommet à lui-même)
 		
-		// Graphe G = new Graphe("./src/petitGraphe.clq");
-		Graphe G = new Graphe("./src/C125.9.clq");
+		Graphe G = new Graphe("./src/petitGraphe.clq");
+		System.out.println(G);
+		// Graphe G = new Graphe("./src/C125.9.clq");
 		
+		G.traitement();
+		
+		/*
 		Graphe G1 = Graphe.getClique(G);
 		if(G1.isClique()) {
 			System.out.println("G1 est une clique de " + G1.getNbSommets());
 		} else System.out.println("G1 n'est pas une clique" + G1.getNbSommets());
+		*/
 	}
 }

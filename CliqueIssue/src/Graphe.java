@@ -245,6 +245,37 @@ public class Graphe {
 	}
 	
 	/**
+	 * Retourne le sommet ayant le plus d'arcs parmi la liste de sommets passée en paramètre
+	 * @param sommets : ArrayList<Integer>
+	 * @return sommet : int
+	 */
+	public int getWithMostArcs(ArrayList<Integer> sommets) {
+		int sommet = -1;
+		int max = 0;
+		for(int s : sommets) {
+			int nbArcs = getNbArcsFrom(s);
+			if(nbArcs > max) {
+				max = nbArcs;
+				sommet = s;
+			}
+		}
+		return sommet;
+	}
+	
+	/**
+	 * Retourne les sommets voisins du sommet passé en paramètre
+	 * @param sommet : int
+	 * @return ArrayList<Integer>
+	 */
+	public ArrayList<Integer> getNeightbors(int sommet) {
+		ArrayList<Integer> voisins = new ArrayList<>();
+		for(int i=0 ; i<nbSommets ; i++) {
+			if(arcs[sommet][i] == true) voisins.add(i);
+		}
+		return voisins;
+	}
+	
+	/**
 	 * Retoune un {@link Graphe} etant une clique à partir du {@link Graphe} G
 	 * @param G : {@link Graphe}
 	 * @return {@link Graphe}
@@ -287,5 +318,28 @@ public class Graphe {
 			// TODO Attention on renvoie le sommet et non la taille de la Clique Maximale
 		}
 		return 0;
-	}	
+	}
+	
+	public void traitement() {
+		// Liste des sommets déjà compris comme partie de la clique
+		ArrayList<Integer> compsub = new ArrayList<>(); 
+		// Liste des sommets candidats, connectés avec tous les noeuds de compsub
+		ArrayList<Integer> candidats = new ArrayList<>();
+		// Liste des sommets déjà analysés, menant à une extension valide de compsub et qui ne devraient pas être utilisées
+		ArrayList<Integer> not = new ArrayList<>();
+		// On prend le premier sommet avec le plus de voisin
+		int sommet = this.getWithMostArcs();
+		System.out.println("Sommet avec le plus de voisins : " + sommet);
+		// On l'ajoute à compsub
+		compsub.add(sommet);
+		ArrayList<Integer> neightbors = getNeightbors(sommet);
+		System.out.println("Voisins de " + sommet + " : " + neightbors);
+		candidats = neightbors;
+		
+		/**
+		 * Une clique est trouvée si :
+		 * 	il n'y a pas plus de candidats ET
+		 * 	il n'y a plus de sommets dans not (sinon ce n'est pas une clique maximale)
+		 */
+	}
 }
