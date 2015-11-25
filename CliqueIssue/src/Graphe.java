@@ -401,6 +401,7 @@ public class Graphe {
 		
 	}
 
+	/*
 	public static void traitement_recursif(Graphe G, ArrayList<Integer> P, ArrayList<Integer> X) {
 		// Liste des sommets déjà compris comme partie de la clique
 		ArrayList<Integer> compsub = new ArrayList<>(); 
@@ -429,6 +430,45 @@ public class Graphe {
 		}
 		return;
 			
+	}
+	*/
+	
+	public void traitement_recursif(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
+		if(Result == null) 
+			Result = new ArrayList<>();
+		if(Exclude == null)
+			Exclude = new ArrayList<>();
+		if(Candidates.isEmpty() && Exclude.isEmpty()) {
+			System.out.println("Clique : " + Result);
+			return;
+		}
+		while(!Candidates.isEmpty()) {
+			int x = Candidates.get(0);
+			System.out.println("Sur le sommet : " + x);
+			ArrayList<Integer> result = Result;
+			result.add(x);
+			traitement_recursif(result, intersection(Candidates, getNeightbors(x)), intersection(Exclude, getNeightbors(x)));
+			Candidates.remove(Candidates.indexOf(x));
+			Exclude.add(x);
+		}
+	}
+	
+	/**
+	 * Effecture l'union de deux {@link ArrayList}
+	 * @param A : {@link ArrayList}
+	 * @param B : {@link ArrayList}
+	 * @return {@link ArrayList}
+	 */
+	private static ArrayList<Integer> union(ArrayList<Integer> A, ArrayList<Integer> B) {
+		ArrayList<Integer> result = new ArrayList<>();
+		for(int x : A) {
+			result.add(x);
+		}
+		for(int x : B) {
+			if(!result.contains(x))
+				result.add(x);
+		}
+		return result;
 	}
 	
 	/**
