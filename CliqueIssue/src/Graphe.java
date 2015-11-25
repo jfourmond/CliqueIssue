@@ -413,6 +413,32 @@ public class Graphe {
         return result;
 	}
 
+	//retourne la liste d'entiers sans le i-ème
+	ArrayList<Integer> getListWithoutI(ArrayList<Integer> indices, int i){
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		for(int n = 0 ; n < indices.size(); ++n){
+			if(n != i) res.add(indices.get(n));
+		}
+		
+		return res;
+	}
+	
+	
+	//Retourne les cliques de taille n-1 à partir d'une clique de taille n
+	ArrayList<ArrayList<Integer>> getSousCliques(ArrayList<Integer> indices){
+		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+		if(isClique(indices)){
+			//alors parcours de toutes les sous-cliques
+			for(int i = 0; i < indices.size(); ++i){
+				ArrayList<Integer> sousClique = getListWithoutI(indices, i);
+				res.add(sousClique);
+			}
+		
+		
+		}
+		return res;
+	}
+	
 	
 	//Retourne une liste de listes d'indices où une liste d'entiers correspond aux colonnes et lignes d'une clique
 	ArrayList<ArrayList<Integer>> getAllCliques(){
@@ -423,6 +449,7 @@ public class Graphe {
 			testclique1.add(3);
 			testclique1.add(4);
 		if(isClique(testclique1)) res.add(testclique1);
+		
 		
 		
 		return res;
