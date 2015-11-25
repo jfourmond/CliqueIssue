@@ -370,22 +370,7 @@ public class Graphe {
 		 * 	il n'y a plus de sommets dans not (sinon ce n'est pas une clique maximale)
 		 */
 	}
-	
-<<<<<<< HEAD
-	
-	//Retourne une liste de listes d'indices où une liste d'entiers correspond aux colonnes et lignes d'une clique
-	ArrayList<ArrayList<Integer>> getAllCliques(){
-		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
-		
-		
-		
-		
-		return res;
-		
-	}
-	
-	
-=======
+
 	public static void traitement_recursif(Graphe G, ArrayList<Integer> P, ArrayList<Integer> X) {
 		// Liste des sommets déjà compris comme partie de la clique
 		ArrayList<Integer> compsub = new ArrayList<>(); 
@@ -430,5 +415,15 @@ public class Graphe {
         }
         return result;
 	}
->>>>>>> branch 'master' of https://github.com/jfourmond/CliqueIssue.git
+
+	
+	//Retourne une liste de listes d'indices où une liste d'entiers correspond aux colonnes et lignes d'une clique
+	ArrayList<ArrayList<Integer>> getAllCliques(){
+		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+		
+		
+		
+		
+		return res;
+	}
 }
