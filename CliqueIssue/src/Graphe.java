@@ -288,6 +288,7 @@ public class Graphe {
 		}
 	}
 	
+	//Retourne true si le graphe composé des colonnes et lignes ayant leurs indices contenus dans sommets est une clique
 	public boolean isClique(ArrayList<Integer> sommets){
 		for(Integer s1 : sommets){
 			for(Integer s2 : sommets){
@@ -350,4 +351,18 @@ public class Graphe {
 		 * 	il n'y a plus de sommets dans not (sinon ce n'est pas une clique maximale)
 		 */
 	}
+	
+	
+	//Retourne une liste de listes d'indices où une liste d'entiers correspond aux colonnes et lignes d'une clique
+	ArrayList<ArrayList<Integer>> getAllCliques(){
+		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+		
+		
+		
+		
+		return res;
+		
+	}
+	
+	
 }
