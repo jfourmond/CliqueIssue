@@ -7,6 +7,7 @@ import java.util.Arrays;
 public class Graphe {
 	private int nbSommets;
 	private boolean arcs[][];
+	private ArrayList<ArrayList<Integer>> listeCliques;
 	
 	/**
 	 * Constructeur vide d'un {@link Graphe}
@@ -14,6 +15,7 @@ public class Graphe {
 	public Graphe() {
 		nbSommets = 0;
 		arcs = new boolean[nbSommets][nbSommets];
+		listeCliques = new ArrayList<ArrayList<Integer>>();
 	}
 	
 	/**
@@ -23,14 +25,11 @@ public class Graphe {
 	public Graphe(int nbSommets) {
 		this.nbSommets = nbSommets;
 		arcs = new boolean[nbSommets][nbSommets];
-<<<<<<< HEAD
-=======
 		listeCliques = new ArrayList<ArrayList<Integer>>();
 		for(int i = 0; i < nbSommets; ++i){
 			ArrayList<Integer> l = new ArrayList<Integer>();
 			listeCliques.add(l);
 		}
->>>>>>> branch 'master' of https://github.com/jfourmond/CliqueIssue.git
 	}
 	
 	/**
@@ -96,6 +95,10 @@ public class Graphe {
 		return this.arcs[sommet];
 	}
 	
+	public ArrayList<ArrayList<Integer>> getListeCliques(){
+		return listeCliques;
+	};
+	
 	//	SETTERS
 	public void setNbSommets(int nbSommets) {
 		this.nbSommets = nbSommets;
@@ -107,6 +110,10 @@ public class Graphe {
 	
 	public void setArcs(boolean[] arcs, int sommet) {
 		this.arcs[sommet] = arcs;
+	}
+	
+	public void setListeCliques(ArrayList<ArrayList<Integer>> liste_cliques){
+		listeCliques = liste_cliques;
 	}
 	
 	@Override
@@ -133,14 +140,12 @@ public class Graphe {
 			Arrays.fill(arcs[i], false);
 		}
 	}
-	
 	public ArrayList<Integer> getSommets() {
 		ArrayList<Integer> result = new ArrayList<>();
 		for(int i=0 ; i<nbSommets ; i++)
 			result.add(i);
 		return result;
 	}
-	
 	/**
 	 * Teste si le {@link Graphe} courant est une clique
 	 * @return <code>true</code> si le Graphe est une clique, <code>false</code> sinon
@@ -390,7 +395,7 @@ public class Graphe {
 		
 		
 	}
-	/*
+
 	public static void traitement_recursif(Graphe G, ArrayList<Integer> P, ArrayList<Integer> X) {
 		// Liste des sommets déjà compris comme partie de la clique
 		ArrayList<Integer> compsub = new ArrayList<>(); 
@@ -420,44 +425,6 @@ public class Graphe {
 		return;
 			
 	}
-	*/
-	public void traitement_recursif(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
-		if(Result == null) 
-			Result = new ArrayList<>();
-		if(Exclude == null)
-			Exclude = new ArrayList<>();
-		if(Candidates.isEmpty() && Exclude.isEmpty()) {
-			System.out.println("Clique : " + Result);
-			return;
-		}
-		while(!Candidates.isEmpty()) {
-			int x = Candidates.get(0);
-			System.out.println("Sur le sommet : " + x);
-			ArrayList<Integer> result = Result;
-			result.add(x);
-			traitement_recursif(result, intersection(Candidates, getNeightbors(x)), intersection(Exclude, getNeightbors(x)));
-			Candidates.remove(Candidates.indexOf(x));
-			Exclude.add(x);
-		}
-	}
-	
-	/**
-	 * Effecture l'union de deux {@link ArrayList}
-	 * @param A : {@link ArrayList}
-	 * @param B : {@link ArrayList}
-	 * @return {@link ArrayList}
-	 */
-	private static ArrayList<Integer> union(ArrayList<Integer> A, ArrayList<Integer> B) {
-		ArrayList<Integer> result = new ArrayList<>();
-		for(int x : A) {
-			result.add(x);
-		}
-		for(int x : B) {
-			if(!result.contains(x))
-				result.add(x);
-		}
-		return result;
-	}
 	
 	/**
 	 * Effectue l'intersection de deux {@link ArrayList}
@@ -466,7 +433,7 @@ public class Graphe {
 	 * @return {@link ArrayList}
 	 */
 	private static ArrayList<Integer> intersection(ArrayList<Integer> A, ArrayList<Integer> B) {
-		ArrayList<Integer> result = new ArrayList<>();
+		ArrayList<Integer> result = new ArrayList();
         for (int x : A) {
             if((B).contains(x)) {
                 result.add(x);
@@ -490,33 +457,42 @@ public class Graphe {
 	ArrayList<ArrayList<Integer>> getSousCliques(ArrayList<Integer> indices){
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 		if(isClique(indices)){
-			//alors parcours de toutes les sous-cliques
-			for(int i = 0; i < indices.size(); ++i){
-				ArrayList<Integer> sousClique = getListWithoutI(indices, i);
-				res.add(sousClique);
+			if(indices.size() >= 2){
+				//alors parcours de toutes les sous-cliques
+				for(int i = 0; i < indices.size(); ++i){
+					ArrayList<Integer> sousClique = getListWithoutI(indices, i);
+					res.add(sousClique);
+				}
 			}
-		
-		
 		}
 		return res;
 	}
 	
+	//ajoute une Clique à listeCliques
+	void ajoutClique(ArrayList<Integer> clique){
+		listeCliques.add(clique);
+		
+	}
+	
+	//Retourne toutes les sous cliques
+	void getEverySingleClique(ArrayList<Integer> indices_clique){
+		if(!indices_clique.isEmpty()){
+			for(ArrayList<Integer> sous_clique : getSousCliques(indices_clique)){
+				ajoutClique(sous_clique);
+				getEverySingleClique(sous_clique);
+			}
+		}
+	}
+	
 	
 	//Retourne une liste de listes d'indices où une liste d'entiers correspond aux colonnes et lignes d'une clique
-	ArrayList<ArrayList<Integer>> getAllCliques(){
-		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
-			ArrayList<Integer> testclique1 = new ArrayList<Integer>();
-			testclique1.add(1);
-			testclique1.add(2);
-			testclique1.add(3);
-			testclique1.add(4);
-		if(isClique(testclique1)) res.add(testclique1);
+	void start_getting_cliques(){
+		ArrayList<Integer> indices_pionniers = new ArrayList<Integer>();
+		for(int i = 0; i < getNbSommets(); ++i){
+			indices_pionniers.add(i);
+		}
+		System.out.println("");
 		
-<<<<<<< HEAD
-		
-		
-		return res;
-=======
 		getEverySingleClique(indices_pionniers);
 	}
 	
@@ -525,13 +501,14 @@ public class Graphe {
 		if(!getListeCliques().isEmpty()){
 			for(ArrayList<Integer> clique : getListeCliques()){
 				for(Integer i : clique){
-					System.out.print("Val"+i);
+					System.out.print(i);
 				}
 				System.out.println("");
 			}
 		} else {
 			System.out.println("ListeCliques est vide...");
 		}
->>>>>>> branch 'master' of https://github.com/jfourmond/CliqueIssue.git
 	}
+	
+	
 }
