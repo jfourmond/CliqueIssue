@@ -29,5 +29,10 @@ public class Main {
 			System.out.println("G1 est une clique de " + G1.getNbSommets());
 		} else System.out.println("G1 n'est pas une clique" + G1.getNbSommets());
 		*/
+		
+		G.start_getting_cliques();
+		//G.afficheListeCliques();
+		
+		//System.out.println("Affichage réussi !");
 	}
 }

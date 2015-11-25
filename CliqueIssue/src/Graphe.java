@@ -7,6 +7,7 @@ import java.util.Arrays;
 public class Graphe {
 	private int nbSommets;
 	private boolean arcs[][];
+	private ArrayList<ArrayList<Integer>> listeCliques;
 	
 	/**
 	 * Constructeur vide d'un {@link Graphe}
@@ -14,6 +15,7 @@ public class Graphe {
 	public Graphe() {
 		nbSommets = 0;
 		arcs = new boolean[nbSommets][nbSommets];
+		listeCliques = new ArrayList<ArrayList<Integer>>();
 	}
 	
 	/**
@@ -23,6 +25,7 @@ public class Graphe {
 	public Graphe(int nbSommets) {
 		this.nbSommets = nbSommets;
 		arcs = new boolean[nbSommets][nbSommets];
+		listeCliques = new ArrayList<ArrayList<Integer>>();
 	}
 	
 	/**
@@ -79,6 +82,10 @@ public class Graphe {
 		return this.arcs[sommet];
 	}
 	
+	public ArrayList<ArrayList<Integer>> getListeCliques(){
+		return listeCliques;
+	};
+	
 	//	SETTERS
 	public void setNbSommets(int nbSommets) {
 		this.nbSommets = nbSommets;
@@ -90,6 +97,10 @@ public class Graphe {
 	
 	public void setArcs(boolean[] arcs, int sommet) {
 		this.arcs[sommet] = arcs;
+	}
+	
+	public void setListeCliques(ArrayList<ArrayList<Integer>> liste_cliques){
+		listeCliques = liste_cliques;
 	}
 	
 	@Override
@@ -427,30 +438,59 @@ public class Graphe {
 	ArrayList<ArrayList<Integer>> getSousCliques(ArrayList<Integer> indices){
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 		if(isClique(indices)){
-			//alors parcours de toutes les sous-cliques
-			for(int i = 0; i < indices.size(); ++i){
-				ArrayList<Integer> sousClique = getListWithoutI(indices, i);
-				res.add(sousClique);
+			if(indices.size() >= 2){
+				//alors parcours de toutes les sous-cliques
+				for(int i = 0; i < indices.size(); ++i){
+					ArrayList<Integer> sousClique = getListWithoutI(indices, i);
+					res.add(sousClique);
+				}
 			}
-		
-		
 		}
 		return res;
 	}
 	
+	//ajoute une Clique à listeCliques
+	void ajoutClique(ArrayList<Integer> clique){
+		listeCliques.add(clique);
+		
+	}
+	
+	//Retourne toutes les sous cliques
+	void getEverySingleClique(ArrayList<Integer> indices_clique){
+		if(!indices_clique.isEmpty()){
+			for(ArrayList<Integer> sous_clique : getSousCliques(indices_clique)){
+				ajoutClique(sous_clique);
+				getEverySingleClique(sous_clique);
+			}
+		}
+	}
+	
 	
 	//Retourne une liste de listes d'indices où une liste d'entiers correspond aux colonnes et lignes d'une clique
-	ArrayList<ArrayList<Integer>> getAllCliques(){
-		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
-			ArrayList<Integer> testclique1 = new ArrayList<Integer>();
-			testclique1.add(1);
-			testclique1.add(2);
-			testclique1.add(3);
-			testclique1.add(4);
-		if(isClique(testclique1)) res.add(testclique1);
+	void start_getting_cliques(){
+		ArrayList<Integer> indices_pionniers = new ArrayList<Integer>();
+		for(int i = 0; i < getNbSommets(); ++i){
+			indices_pionniers.add(i);
+		}
+		System.out.println("");
 		
-		
-		
-		return res;
+		System.out.println("Entree dans getEverySingleClique");
+		getEverySingleClique(indices_pionniers);
+		System.out.println("Sortie de getEverySingleClique");
 	}
+	
+	//Affiche les cliques contenues dans listeCliques
+	void afficheListeCliques(){
+		if(!getListeCliques().isEmpty()){
+			for(ArrayList<Integer> clique : getListeCliques()){
+				for(Integer i : clique){
+					System.out.print(i);
+				}
+				System.out.println("");
+			}
+		}
+		
+	}
+	
+	
 }
