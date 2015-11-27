@@ -9,6 +9,8 @@ public class Graphe {
 	private boolean arcs[][];
 	private ArrayList<ArrayList<Integer>> listeCliques;
 	
+	public static ArrayList<Integer> maximumClique = new ArrayList<>();
+	
 	/**
 	 * Constructeur vide d'un {@link Graphe}
 	 */
@@ -446,8 +448,11 @@ public class Graphe {
 		
 		if(Candidates.isEmpty() && Exclude.isEmpty()) {
 			System.out.println("Clique (" + Result.size() + ") : " + Result);
+			if(Result.size() > maximumClique.size())
+				maximumClique = Result;
 			return;
-		} else while(!Candidates.isEmpty()) {
+		}
+		while(!Candidates.isEmpty()) {
 			int x = Candidates.get(0);
 			showCliques(union(Result, x), intersection(Candidates, getNeightbors(x)), intersection(Exclude, getNeightbors(x)));
 			Candidates.remove(0);
