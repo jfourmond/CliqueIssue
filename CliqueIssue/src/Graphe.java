@@ -520,21 +520,41 @@ public class Graphe {
 	//Retourne les cliques de taille n-1 à partir d'une clique de taille n
 	ArrayList<ArrayList<Integer>> getSousCliques(ArrayList<Integer> indices){
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
-		if(isClique(indices)){
-			if(indices.size() >= 2){
-				//alors parcours de toutes les sous-cliques
-				for(int i = 0; i < indices.size(); ++i){
-					ArrayList<Integer> sousClique = getListWithoutI(indices, i);
-					res.add(sousClique);
-				}
+		if(indices.size() >= 2){
+			//alors parcours de toutes les sous-cliques
+			for(int i = 0; i < indices.size(); ++i){
+				ArrayList<Integer> sousClique = getListWithoutI(indices, i);
+				res.add(sousClique);
 			}
 		}
 		return res;
 	}
 	
+	//retourne
+	
+	//retourne true si deux cliques sont les mêmes
+	boolean sameClique(ArrayList<Integer> clique1, ArrayList<Integer> clique2){
+		boolean res = true;
+		for(Integer i : clique1){
+			if(!clique2.contains(i)) return false;
+		}
+		
+		return res;
+	}
+	
+	//retourne true si la clique est déjà dans la liste des cliques
+	boolean isPresent(ArrayList<Integer> clique){
+		boolean res = false;
+		for(ArrayList<Integer> clique_stockee : getListeCliques()){
+			if(sameClique(clique, clique_stockee)) return true;
+		}
+		
+		return res;
+	}
+	
 	//ajoute une Clique à listeCliques
 	void ajoutClique(ArrayList<Integer> clique){
-		listeCliques.add(clique);
+		if(!isPresent(clique)) listeCliques.add(clique);
 		
 	}
 	
@@ -556,16 +576,16 @@ public class Graphe {
 			indices_pionniers.add(i);
 		}
 		System.out.println("");
-		
 		getEverySingleClique(indices_pionniers);
 	}
 	
 	//Affiche les cliques contenues dans listeCliques
 	void afficheListeCliques(){
 		if(!getListeCliques().isEmpty()){
+			System.out.println("Nombre de cliques stockées : "+getListeCliques().size());
 			for(ArrayList<Integer> clique : getListeCliques()){
 				for(Integer i : clique){
-					System.out.print(i);
+					System.out.print(i+" ");
 				}
 				System.out.println("");
 			}
