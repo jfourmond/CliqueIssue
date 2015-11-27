@@ -521,7 +521,7 @@ public class Graphe {
 	
 	//Retourne les cliques de taille n-1 à partir d'une clique de taille n
 	ArrayList<ArrayList<Integer>> getSousCliques(ArrayList<Integer> indices){
-		int taille_min = 4;
+		int taille_min = 2;
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 		if(indices.size() >= taille_min){
 			//alors parcours de toutes les sous-cliques
@@ -597,5 +597,49 @@ public class Graphe {
 		}
 	}
 	
+	//Affiche les cliques contenues dans listeCliques
+	void afficheListeCliques(ArrayList<ArrayList<Integer>> listeClique){
+		if(listeClique.isEmpty()){
+			for(ArrayList<Integer> clique : listeClique){
+				for(Integer i : clique){
+					System.out.print(i+" ");
+				}
+				System.out.println("");
+			}
+		} else {
+			System.out.println("ListeCliques est vide...");
+		}
+	}
+	
+	//retourne la taille de la plus grande clique de listeCliques
+	int getBiggestClique(){
+		int res = 0;
+			for(ArrayList<Integer> clique : getListeCliques()){
+				if(res < clique.size()) res = clique.size();
+			}
+		
+		return res;
+	}
+	
+	//trie la liste des cliques par taille
+	ArrayList<ArrayList<Integer>> tri_listeCliques(){
+		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+		for(int i = getBiggestClique(); i > 0; --i){
+			for(ArrayList<Integer> clique : getListeCliques()){
+				if(clique.size() == i) res.add(clique);
+			}
+		}
+		
+		return res;
+	}
+	
+	//retourne les cliques maximales parmis les cliques de listeCliques
+	//On regarde (DESC) les cliques qui ne sont pas déjà inclues dans res, pour éliminer les "inclusions"
+	ArrayList<ArrayList<Integer>> getAllCliquesMax(){
+		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+		
+		
+		return res;
+	}
 	
 }
