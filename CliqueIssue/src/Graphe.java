@@ -81,6 +81,7 @@ public class Graphe {
 			fis.close();
 		} catch (Exception e) {
 			System.out.println(e.toString());
+			e.printStackTrace();
 		}
 	}
 	
