@@ -14,8 +14,8 @@ public class Main {
 		 
 		
 		
-		Graphe G = new Graphe("./src/petitGraphe.clq");
-		// Graphe G = new Graphe("./src/C125.9.clq");
+		// Graphe G = new Graphe("./src/petitGraphe.clq");
+		Graphe G = new Graphe("./src/C125.9.clq");
 		
 		// System.out.println("\n\nTRAITEMENT RECURSIF\n");
 		// Graphe.traitement_recursif(G, null, null);
@@ -24,6 +24,7 @@ public class Main {
 		// Graphe.traitement(G);
 		System.out.println("-----	Jérôme	-----");
 		G.traitement_recursif(null, G.getSommets(), null);
+		
 		/*
 		Graphe G1 = Graphe.getClique(G);
 		if(G1.isClique()) {

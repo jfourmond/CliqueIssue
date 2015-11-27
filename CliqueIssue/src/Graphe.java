@@ -435,6 +435,7 @@ public class Graphe {
 	
 	/**
 	 * Traitement Recursif d'une recherche de clique maximale
+	 * Algorithme de Bron-Kerbosch récursif
 	 * @param Result : {@link ArrayList}
 	 * @param Candidates : {@link ArrayList}
 	 * @param Exclude : {@link ArrayList}
@@ -450,7 +451,8 @@ public class Graphe {
 		while(!Candidates.isEmpty()) {
 			int x = Candidates.get(0);
 			traitement_recursif(union(Result, x), intersection(Candidates, getNeightbors(x)), intersection(Exclude, getNeightbors(x)));
-			Candidates.remove(Candidates.indexOf(x));
+			int n = Candidates.indexOf(x);
+			Candidates.remove(n);
 			Exclude = union(Exclude, x);
 		}
 	}
@@ -492,7 +494,7 @@ public class Graphe {
 	 * @return {@link ArrayList}
 	 */
 	private static ArrayList<Integer> intersection(ArrayList<Integer> A, ArrayList<Integer> B) {
-		ArrayList<Integer> result = new ArrayList();
+		ArrayList<Integer> result = new ArrayList<>();
         for (int x : A) {
             if((B).contains(x)) {
                 result.add(x);
