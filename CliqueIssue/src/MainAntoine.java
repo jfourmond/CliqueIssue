@@ -12,7 +12,7 @@ public class MainAntoine {
 		
 		//System.out.println("Plus grande clique : "+G.getBiggestClique());
 		
-		G.afficheListeCliques(G.tri_listeCliques());
+		G.afficheListeCliques(G.getAllCliquesMax());
 		
 		System.out.println("Affichage réussi !");
 		

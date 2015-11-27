@@ -600,7 +600,7 @@ public class Graphe {
 	
 	//Affiche les cliques contenues dans listeCliques
 	void afficheListeCliques(ArrayList<ArrayList<Integer>> listeClique){
-		if(listeClique.isEmpty()){
+		if(!listeClique.isEmpty()){
 			for(ArrayList<Integer> clique : listeClique){
 				for(Integer i : clique){
 					System.out.print(i+" ");
@@ -622,6 +622,27 @@ public class Graphe {
 		return res;
 	}
 	
+	//retourne true si clique 1 est incluse dans clique 2
+	boolean isIncludedClique(ArrayList<Integer> clique1, ArrayList<Integer> clique2){
+		for(Integer i : clique1){
+			if(!clique2.contains(i)) return false;
+		}
+		
+		return true;
+	}
+	
+	//retourne true si une clique est déjà incluse dans une liste de cliques
+	boolean isIncludedListeCliques(ArrayList<Integer> clique, ArrayList<ArrayList<Integer>> listeCliques){
+		for(ArrayList<Integer> l_clique : listeCliques){
+			if(!sameClique(clique, l_clique)){
+				if(clique.size() < l_clique.size()){
+					if(isIncludedClique(clique, l_clique)) return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	//trie la liste des cliques par taille
 	ArrayList<ArrayList<Integer>> tri_listeCliques(){
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
@@ -630,7 +651,6 @@ public class Graphe {
 				if(clique.size() == i) res.add(clique);
 			}
 		}
-		
 		return res;
 	}
 	
@@ -638,7 +658,9 @@ public class Graphe {
 	//On regarde (DESC) les cliques qui ne sont pas déjà inclues dans res, pour éliminer les "inclusions"
 	ArrayList<ArrayList<Integer>> getAllCliquesMax(){
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
-		
+		for(ArrayList<Integer> clique : tri_listeCliques()){
+			if(!isIncludedListeCliques(clique, res)) res.add(clique);
+		}
 		
 		return res;
 	}
