@@ -521,12 +521,13 @@ public class Graphe {
 	
 	//Retourne les cliques de taille n-1 à partir d'une clique de taille n
 	ArrayList<ArrayList<Integer>> getSousCliques(ArrayList<Integer> indices){
+		int taille_min = 4;
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
-		if(indices.size() >= 2){
+		if(indices.size() >= taille_min){
 			//alors parcours de toutes les sous-cliques
 			for(int i = 0; i < indices.size(); ++i){
 				ArrayList<Integer> sousClique = getListWithoutI(indices, i);
-				res.add(sousClique);
+				if(sousClique.size() >= taille_min) res.add(sousClique);
 			}
 		}
 		return res;
@@ -537,6 +538,7 @@ public class Graphe {
 	//retourne true si deux cliques sont les mêmes
 	boolean sameClique(ArrayList<Integer> clique1, ArrayList<Integer> clique2){
 		boolean res = true;
+		if(clique1.size() != clique2.size()) return false;
 		for(Integer i : clique1){
 			if(!clique2.contains(i)) return false;
 		}
@@ -564,12 +566,11 @@ public class Graphe {
 	void getEverySingleClique(ArrayList<Integer> indices_clique){
 		if(!indices_clique.isEmpty()){
 			for(ArrayList<Integer> sous_clique : getSousCliques(indices_clique)){
-				ajoutClique(sous_clique);
+				if(isClique(sous_clique)) ajoutClique(sous_clique);
 				getEverySingleClique(sous_clique);
 			}
 		}
 	}
-	
 	
 	//Retourne une liste de listes d'indices où une liste d'entiers correspond aux colonnes et lignes d'une clique
 	void start_getting_cliques(){
