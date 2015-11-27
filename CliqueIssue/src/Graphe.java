@@ -440,18 +440,16 @@ public class Graphe {
 	 * @param Exclude : {@link ArrayList}
 	 */
 	public void traitement_recursif(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
-		if(Result == null) 
-			Result = new ArrayList<>();
-		if(Exclude == null)
-			Exclude = new ArrayList<>();
+		if(Result == null) Result = new ArrayList<>();
+		if(Exclude == null) Exclude = new ArrayList<>();
+		
 		if(Candidates.isEmpty() && Exclude.isEmpty()) {
-			System.out.println("Clique : " + Result);
+			System.out.println("Clique (" + Result.size() + ") : " + Result);
 			return;
 		}
 		while(!Candidates.isEmpty()) {
 			int x = Candidates.get(0);
-			Result = union(Result, x);
-			traitement_recursif(Result, intersection(Candidates, getNeightbors(x)), intersection(Exclude, getNeightbors(x)));
+			traitement_recursif(union(Result, x), intersection(Candidates, getNeightbors(x)), intersection(Exclude, getNeightbors(x)));
 			Candidates.remove(Candidates.indexOf(x));
 			Exclude = union(Exclude, x);
 		}
