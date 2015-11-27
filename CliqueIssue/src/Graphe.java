@@ -440,19 +440,17 @@ public class Graphe {
 	 * @param Candidates : {@link ArrayList}
 	 * @param Exclude : {@link ArrayList}
 	 */
-	public void traitement_recursif(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
+	public void showCliques(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
 		if(Result == null) Result = new ArrayList<>();
 		if(Exclude == null) Exclude = new ArrayList<>();
 		
 		if(Candidates.isEmpty() && Exclude.isEmpty()) {
 			System.out.println("Clique (" + Result.size() + ") : " + Result);
 			return;
-		}
-		while(!Candidates.isEmpty()) {
+		} else while(!Candidates.isEmpty()) {
 			int x = Candidates.get(0);
-			traitement_recursif(union(Result, x), intersection(Candidates, getNeightbors(x)), intersection(Exclude, getNeightbors(x)));
-			int n = Candidates.indexOf(x);
-			Candidates.remove(n);
+			showCliques(union(Result, x), intersection(Candidates, getNeightbors(x)), intersection(Exclude, getNeightbors(x)));
+			Candidates.remove(0);
 			Exclude = union(Exclude, x);
 		}
 	}
@@ -482,7 +480,7 @@ public class Graphe {
 	 * @return {@link ArrayList}
 	 */
 	private static ArrayList<Integer> union(ArrayList<Integer> A, int x) {
-		ArrayList<Integer> result = A;
+		ArrayList<Integer> result = new ArrayList<>(A);
 		if(!result.contains(x)) result.add(x);
 		return result;
 	}

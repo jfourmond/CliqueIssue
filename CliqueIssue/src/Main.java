@@ -12,6 +12,12 @@ public class Main {
 		 * (la solution optimale).
 		 */
 		 
+		for(String s : args) {
+			System.out.print("Argument : ");
+			System.out.print(s);
+			System.out.println("");
+		}
+		
 		
 		
 		// Graphe G = new Graphe("./src/petitGraphe.clq");
@@ -23,7 +29,7 @@ public class Main {
 		// System.out.println("\n\nTRAITEMENT ITERATIF\n");
 		// Graphe.traitement(G);
 		System.out.println("-----	Jérôme	-----");
-		G.traitement_recursif(null, G.getSommets(), null);
+		G.showCliques(null, G.getSommets(), null);
 		
 		/*
 		Graphe G1 = Graphe.getClique(G);
