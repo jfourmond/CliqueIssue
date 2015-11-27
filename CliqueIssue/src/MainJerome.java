@@ -19,10 +19,9 @@ public class MainJerome {
 		
 		// Graphe G = new Graphe("./src/petitGraphe.clq");
 		Graphe G = new Graphe("./src/C125.9.clq");
-		
-		System.out.println("-----	Jérôme	-----");
+
 		G.showCliques(null, G.getSommets(), null);
-		System.out.println("Clique \"Maximum\" : " + Graphe.maximumClique.size());
+		System.out.println("\nClique \"Maximum\" : " + Graphe.maximumClique.size());
 	}
 
 }

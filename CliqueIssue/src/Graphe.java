@@ -446,10 +446,12 @@ public class Graphe {
 		if(Result == null) Result = new ArrayList<>();
 		if(Exclude == null) Exclude = new ArrayList<>();
 		
-		if(Candidates.isEmpty() && Exclude.isEmpty()) {
-			System.out.println("Clique (" + Result.size() + ") : " + Result);
-			if(Result.size() > maximumClique.size())
+		if(Candidates.isEmpty() && Exclude.isEmpty()) {	
+			System.out.print(".");
+			if(Result.size() > maximumClique.size()) {
 				maximumClique = Result;
+				System.out.print("new Max("+maximumClique.size()+")");
+			}
 			return;
 		}
 		while(!Candidates.isEmpty()) {
