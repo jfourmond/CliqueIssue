@@ -10,6 +10,7 @@ public class Graphe {
 	private ArrayList<ArrayList<Integer>> listeCliques;
 	
 	public static ArrayList<Integer> maximumClique = new ArrayList<>();
+	public static long chrono;
 	
 	/**
 	 * Constructeur vide d'un {@link Graphe}
@@ -509,6 +510,16 @@ public class Graphe {
         return result;
 	}
 
+	public static void launchChrono() {
+		chrono = System.currentTimeMillis();
+		System.out.println("Début du Chrono : " + chrono + " ms");
+	}
+	
+	public static void stopChrono() {
+		long chrono_now = System.currentTimeMillis();
+		System.out.println("Temps écoulé : " + (chrono_now - chrono) + " ms");
+	}
+	
 	//retourne la liste d'entiers sans le i-ème
 	ArrayList<Integer> getListWithoutI(ArrayList<Integer> indices, int i){
 		ArrayList<Integer> res = new ArrayList<Integer>();
