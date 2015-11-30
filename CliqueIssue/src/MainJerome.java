@@ -17,8 +17,8 @@ public class MainJerome {
 			System.out.println("");
 		}
 		
-		 Graphe G = new Graphe("./src/petitGraphe.clq");
-		// Graphe G = new Graphe("./src/C125.9.clq");
+		// Graphe G = new Graphe("./src/petitGraphe.clq");
+		Graphe G = new Graphe("./src/C125.9.clq");
 		Graphe.launchChrono();
 		G.showCliquesTomita(null, G.getSommets(), null);
 		Graphe.stopChrono();

@@ -458,11 +458,13 @@ public class Graphe {
 	/**
 	 * Traitement Recursif d'une recherche de clique maximale
 	 * Algorithme de Bron-Kerbosch récursif
+	 * S'arrêtera au bout de cinq minutes
 	 * @param Result : {@link ArrayList}
 	 * @param Candidates : {@link ArrayList}
 	 * @param Exclude : {@link ArrayList}
 	 */
 	public void showCliquesBK(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
+		if(getChrono() > 300000) return;	// On stoppe le process au bout 5 minutes (ça peut-être long sinon)
 		if(Result == null) Result = new ArrayList<>();
 		if(Exclude == null) Exclude = new ArrayList<>();
 		
@@ -485,42 +487,32 @@ public class Graphe {
 	/**
 	 * Traitement Recursif d'une recherche de clique maximale
 	 * Algorithme de Tomita
+	 * S'arrêtera au bout de cinq minutes
 	 * @param Result : {@link ArrayList}
 	 * @param Candidates : {@link ArrayList}
 	 * @param Exclude : {@link ArrayList}
 	 */
 	public void showCliquesTomita(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
-		if(Result == null) {
+		if(getChrono() > 300000) return;	// On stoppe le process au bout 5 minutes (ça peut-être long sinon)
+		if(Result == null)
 			Result = new ArrayList<>();
-			System.out.println("Result était égale à null");
-		}
-		if(Exclude == null) {
+		if(Exclude == null)
 			Exclude = new ArrayList<>();
-			System.out.println("Exclude était égale à null");
-		}
 		
 		if(Candidates.isEmpty() && Exclude.isEmpty()) {	
-			System.out.println(".");
+			System.out.print(".");
 			if(Result.size() > maximumClique.size()) {
 				maximumClique = Result;
-				System.out.println("new Max("+maximumClique.size()+")");
+				System.out.print("new Max("+maximumClique.size()+")");
 			}
 			return;
 		}
-		System.out.println("Candidats : " + Candidates);
-		System.out.println("Resultat : " + Result);
-		System.out.println("Exclus : " + Exclude);
-		
 		ArrayList<Integer> aux = union(Candidates, Exclude);
 		int most_neighbors = getMostNeightbors(aux);
-		System.out.println("Plus de voisins : " + most_neighbors);
-		ArrayList<Integer> toCompute = minus(Candidates, getNeightbors(most_neighbors));
-		
-		System.out.println("A utiliser : " + toCompute);
-		
+		ArrayList<Integer> toCompute = difference(Candidates, getNeightbors(most_neighbors));
 		for(int sommet : toCompute) {
-			showCliquesTomita(union(Result, sommet), intersection(Result, getNeightbors(sommet)), intersection(Exclude, getNeightbors(sommet)));
-			Candidates.remove(sommet);
+			showCliquesTomita(union(Result, sommet), intersection(Candidates, getNeightbors(sommet)), intersection(Exclude, getNeightbors(sommet)));
+			Candidates.remove(Candidates.indexOf(sommet));
 			Exclude = union(Exclude, sommet);
 		}
 	}
@@ -533,13 +525,11 @@ public class Graphe {
 	 */
 	private static ArrayList<Integer> union(ArrayList<Integer> A, ArrayList<Integer> B) {
 		ArrayList<Integer> result = new ArrayList<>();
-		for(int x : A) {
+		for(int x : A)
 			result.add(x);
-		}
-		for(int x : B) {
+		for(int x : B)
 			if(!result.contains(x))
 				result.add(x);
-		}
 		return result;
 	}
 	
@@ -563,11 +553,9 @@ public class Graphe {
 	 */
 	private static ArrayList<Integer> intersection(ArrayList<Integer> A, ArrayList<Integer> B) {
 		ArrayList<Integer> result = new ArrayList<>();
-        for (int x : A) {
-            if((B).contains(x)) {
+        for (int x : A)
+            if((B).contains(x))
                 result.add(x);
-            }
-        }
         return result;
 	}
 
@@ -577,24 +565,27 @@ public class Graphe {
 	 * @param B : {@link ArrayList}
 	 * @return {@link ArrayList}
 	 */
-	private static ArrayList<Integer> minus(ArrayList<Integer> A, ArrayList<Integer> B) {
+	private static ArrayList<Integer> difference(ArrayList<Integer> A, ArrayList<Integer> B) {
 		ArrayList<Integer> result = new ArrayList<>(A);
-		for(int x : B) {
-			if(result.contains(x)) {
+		for(int x : B)
+			if(result.contains(x))
 				result.remove(result.indexOf(x));
-			}
-		}
 		return result;
 	}
 	
 	public static void launchChrono() {
 		chrono = System.currentTimeMillis();
-		System.out.println("Début du Chrono : " + chrono + " ms");
+		System.out.println("Lancement du chrono");
 	}
 	
 	public static void stopChrono() {
 		long chrono_now = System.currentTimeMillis();
 		System.out.println("\nTemps écoulé : " + (chrono_now - chrono) + " ms");
+	}
+	
+	public static long getChrono() {
+		long chrono_now = System.currentTimeMillis();
+		return (chrono_now - chrono);
 	}
 	
 	//retourne la liste d'entiers sans le i-ème
