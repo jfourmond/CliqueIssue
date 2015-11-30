@@ -3,7 +3,6 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 
 public class Graphe {
@@ -466,7 +465,7 @@ public class Graphe {
 	 * @param Exclude : {@link ArrayList}
 	 */
 	public void showCliquesBK(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
-		if(getChrono() > 300000) return;	// On stoppe le process au bout 5 minutes (ça peut-être long sinon)
+		// if(getChrono() > 300000) return;	// On stoppe le process au bout 5 minutes (ça peut-être long sinon)
 		if(Result == null) Result = new ArrayList<>();
 		if(Exclude == null) Exclude = new ArrayList<>();
 		
@@ -495,7 +494,7 @@ public class Graphe {
 	 * @param Exclude : {@link ArrayList}
 	 */
 	public void showCliquesTomita(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
-		if(getChrono() > 600000) return;	// On stoppe le process au bout 10 minutes (ça peut-être long sinon)
+		// if(getChrono() > 600000) return;	// On stoppe le process au bout 10 minutes (ça peut-être long sinon)
 		if(Result == null)
 			Result = new ArrayList<>();
 		if(Exclude == null)
