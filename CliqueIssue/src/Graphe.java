@@ -314,6 +314,24 @@ public class Graphe {
 	}
 	
 	/**
+	 * Retourne le sommet, dans la liste, ayant le plus de voisin
+	 * @param sommets : {@link ArrayList}
+	 * @return int
+	 */
+	public int getMostNeightbors(ArrayList<Integer> sommets) {
+		int sommet = -1;
+		int max = -1;
+		for(int s : sommets) {
+			int nbArcs = getNbArcsFrom(s);
+			if(nbArcs > max) {
+				max = nbArcs;
+				sommet = s;
+			}
+		}
+		return sommet;
+	}
+	
+	/**
 	 * Retoune un {@link Graphe} etant une clique à partir du {@link Graphe} G
 	 * @param G : {@link Graphe}
 	 * @return {@link Graphe}
@@ -444,7 +462,7 @@ public class Graphe {
 	 * @param Candidates : {@link ArrayList}
 	 * @param Exclude : {@link ArrayList}
 	 */
-	public void showCliques(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
+	public void showCliquesBK(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
 		if(Result == null) Result = new ArrayList<>();
 		if(Exclude == null) Exclude = new ArrayList<>();
 		
@@ -458,9 +476,52 @@ public class Graphe {
 		}
 		while(!Candidates.isEmpty()) {
 			int x = Candidates.get(0);
-			showCliques(union(Result, x), intersection(Candidates, getNeightbors(x)), intersection(Exclude, getNeightbors(x)));
+			showCliquesBK(union(Result, x), intersection(Candidates, getNeightbors(x)), intersection(Exclude, getNeightbors(x)));
 			Candidates.remove(0);
 			Exclude = union(Exclude, x);
+		}
+	}
+	
+	/**
+	 * Traitement Recursif d'une recherche de clique maximale
+	 * Algorithme de Tomita
+	 * @param Result : {@link ArrayList}
+	 * @param Candidates : {@link ArrayList}
+	 * @param Exclude : {@link ArrayList}
+	 */
+	public void showCliquesTomita(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
+		if(Result == null) {
+			Result = new ArrayList<>();
+			System.out.println("Result était égale à null");
+		}
+		if(Exclude == null) {
+			Exclude = new ArrayList<>();
+			System.out.println("Exclude était égale à null");
+		}
+		
+		if(Candidates.isEmpty() && Exclude.isEmpty()) {	
+			System.out.println(".");
+			if(Result.size() > maximumClique.size()) {
+				maximumClique = Result;
+				System.out.println("new Max("+maximumClique.size()+")");
+			}
+			return;
+		}
+		System.out.println("Candidats : " + Candidates);
+		System.out.println("Resultat : " + Result);
+		System.out.println("Exclus : " + Exclude);
+		
+		ArrayList<Integer> aux = union(Candidates, Exclude);
+		int most_neighbors = getMostNeightbors(aux);
+		System.out.println("Plus de voisins : " + most_neighbors);
+		ArrayList<Integer> toCompute = minus(Candidates, getNeightbors(most_neighbors));
+		
+		System.out.println("A utiliser : " + toCompute);
+		
+		for(int sommet : toCompute) {
+			showCliquesTomita(union(Result, sommet), intersection(Result, getNeightbors(sommet)), intersection(Exclude, getNeightbors(sommet)));
+			Candidates.remove(sommet);
+			Exclude = union(Exclude, sommet);
 		}
 	}
 	
@@ -510,6 +571,22 @@ public class Graphe {
         return result;
 	}
 
+	/**
+	 * Supprime les éléments de B dans A
+	 * @param A : {@link ArrayList}
+	 * @param B : {@link ArrayList}
+	 * @return {@link ArrayList}
+	 */
+	private static ArrayList<Integer> minus(ArrayList<Integer> A, ArrayList<Integer> B) {
+		ArrayList<Integer> result = new ArrayList<>(A);
+		for(int x : B) {
+			if(result.contains(x)) {
+				result.remove(result.indexOf(x));
+			}
+		}
+		return result;
+	}
+	
 	public static void launchChrono() {
 		chrono = System.currentTimeMillis();
 		System.out.println("Début du Chrono : " + chrono + " ms");
@@ -517,7 +594,7 @@ public class Graphe {
 	
 	public static void stopChrono() {
 		long chrono_now = System.currentTimeMillis();
-		System.out.println("Temps écoulé : " + (chrono_now - chrono) + " ms");
+		System.out.println("\nTemps écoulé : " + (chrono_now - chrono) + " ms");
 	}
 	
 	//retourne la liste d'entiers sans le i-ème
