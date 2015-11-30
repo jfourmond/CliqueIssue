@@ -22,7 +22,6 @@ public class MainJerome {
 		Graphe.launchChrono();
 		G.showCliquesTomita(null, G.getSommets(), null);
 		Graphe.stopChrono();
-		System.out.println("\nClique \"Maximum\" : " + Graphe.maximumClique.size());
 	}
 
 }

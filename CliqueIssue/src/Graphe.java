@@ -3,6 +3,8 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Graphe {
 	private int nbSommets;
@@ -493,17 +495,17 @@ public class Graphe {
 	 * @param Exclude : {@link ArrayList}
 	 */
 	public void showCliquesTomita(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
-		if(getChrono() > 300000) return;	// On stoppe le process au bout 5 minutes (ça peut-être long sinon)
+		if(getChrono() > 600000) return;	// On stoppe le process au bout 10 minutes (ça peut-être long sinon)
 		if(Result == null)
 			Result = new ArrayList<>();
 		if(Exclude == null)
 			Exclude = new ArrayList<>();
 		
-		if(Candidates.isEmpty() && Exclude.isEmpty()) {	
-			System.out.print(".");
+		if(Candidates.isEmpty() && Exclude.isEmpty()) {
 			if(Result.size() > maximumClique.size()) {
 				maximumClique = Result;
-				System.out.print("new Max("+maximumClique.size()+")");
+				Collections.sort(maximumClique);
+				System.out.println("Nouvelle Clique Maximale : " + maximumClique + "(" + maximumClique.size() + ")");
 			}
 			return;
 		}
