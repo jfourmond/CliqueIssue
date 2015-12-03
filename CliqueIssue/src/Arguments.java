@@ -60,6 +60,11 @@ public class Arguments {
 	}
 	
 	public static void showHelp() {
-		
+		System.out.println("-graph=<file to graph>	:	the file who contains the description of the graphe");
+		System.out.println("-method=<method 0, 1, 2>	:	method to use");
+		System.out.println("\t\t\t 0\t:\tShlag");
+		System.out.println("\t\t\t 1\t:\tB-K");
+		System.out.println("\t\t\t 2\t:\tTomita");
+		System.out.println("-limit=<time limit ms>	:	the time limit of execution (ms)");
 	}
 }
