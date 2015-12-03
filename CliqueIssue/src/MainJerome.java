@@ -11,7 +11,11 @@ public class MainJerome {
 		 * (la solution optimale).
 		 */
 		
-		// Argument possible : -graph=file.txt -limit=10000 (en ms)	-method=1
+		if(args.length == 0) {
+			Arguments.showValidArguments();
+			return;
+		}
+		
 		try {
 			new Arguments(args);
 		} catch (ArgumentException AE) {
