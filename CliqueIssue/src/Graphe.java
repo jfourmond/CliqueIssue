@@ -40,51 +40,46 @@ public class Graphe {
 	 * Constructeur d'un {@link Graphe} à partir d'un fichier
 	 * @param filename : String
 	 */
-	public Graphe(String filename) {
+	public Graphe(String filename) throws Exception {
 		int nbSommets = 0;
-		try{
-			FileInputStream fis 	=	new FileInputStream(filename); 
-			InputStreamReader ipsr 	= 	new InputStreamReader(fis);
-			BufferedReader br 		=	new BufferedReader(ipsr);
-			String ligne;
-			// Récupération du nombre de sommets
-			while ((ligne=br.readLine())!=null){
-				if(ligne.startsWith("p")) {
-					String[] split_line = ligne.split(" ");
-					nbSommets = Integer.parseInt(split_line[2]);
-					break;
-				}
+		FileInputStream fis 	=	new FileInputStream(filename); 
+		InputStreamReader ipsr 	= 	new InputStreamReader(fis);
+		BufferedReader br 		=	new BufferedReader(ipsr);
+		String ligne;
+		// Récupération du nombre de sommets
+		while ((ligne=br.readLine())!=null){
+			if(ligne.startsWith("p")) {
+				String[] split_line = ligne.split(" ");
+				nbSommets = Integer.parseInt(split_line[2]);
+				break;
 			}
-			this.nbSommets = nbSommets;
-			arcs = new boolean[nbSommets][nbSommets];
-			
-			//listeClique à créér aussi
-			listeCliques = new ArrayList<ArrayList<Integer>>();
-			for(int i = 0; i < nbSommets; ++i){
-				ArrayList<Integer> l = new ArrayList<Integer>();
-				listeCliques.add(l);
-			}
-			
-			
-			init();
-			// Récupération des arcs
-			while ((ligne=br.readLine())!=null){
-				if(ligne.startsWith("e")) {
-					String[] split_ligne = ligne.split(" ");
-					int from = Integer.parseInt(split_ligne[1]);
-					int to = Integer.parseInt(split_ligne[2]);
-					// System.out.print("From " + from + " To " + to + "\n");
-					arcs[from-1][to-1] = true;
-					arcs[to-1][from-1] = true;
-				}
-			}
-			br.close();
-			ipsr.close();
-			fis.close();
-		} catch (Exception e) {
-			System.out.println(e.toString());
-			e.printStackTrace();
 		}
+		this.nbSommets = nbSommets;
+		arcs = new boolean[nbSommets][nbSommets];
+		
+		//listeClique à créér aussi
+		listeCliques = new ArrayList<ArrayList<Integer>>();
+		for(int i = 0; i < nbSommets; ++i){
+			ArrayList<Integer> l = new ArrayList<Integer>();
+			listeCliques.add(l);
+		}
+		
+		
+		init();
+		// Récupération des arcs
+		while ((ligne=br.readLine())!=null){
+			if(ligne.startsWith("e")) {
+				String[] split_ligne = ligne.split(" ");
+				int from = Integer.parseInt(split_ligne[1]);
+				int to = Integer.parseInt(split_ligne[2]);
+				// System.out.print("From " + from + " To " + to + "\n");
+				arcs[from-1][to-1] = true;
+				arcs[to-1][from-1] = true;
+			}
+		}
+		br.close();
+		ipsr.close();
+		fis.close();
 	}
 	
 	//	GETTERS
@@ -465,15 +460,15 @@ public class Graphe {
 	 * @param Exclude : {@link ArrayList}
 	 */
 	public void showCliquesBK(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
-		// if(getChrono() > 300000) return;	// On stoppe le process au bout 5 minutes (ça peut-être long sinon)
+		if(getChrono() > Arguments.limit) return;
 		if(Result == null) Result = new ArrayList<>();
 		if(Exclude == null) Exclude = new ArrayList<>();
 		
-		if(Candidates.isEmpty() && Exclude.isEmpty()) {	
-			System.out.print(".");
+		if(Candidates.isEmpty() && Exclude.isEmpty()) {
 			if(Result.size() > maximumClique.size()) {
 				maximumClique = Result;
-				System.out.print("new Max("+maximumClique.size()+")");
+				Collections.sort(maximumClique);
+				System.out.println("Nouvelle Clique Maximale : " + maximumClique + "(" + maximumClique.size() + ")");
 			}
 			return;
 		}
@@ -494,7 +489,7 @@ public class Graphe {
 	 * @param Exclude : {@link ArrayList}
 	 */
 	public void showCliquesTomita(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
-		// if(getChrono() > 600000) return;	// On stoppe le process au bout 10 minutes (ça peut-être long sinon)
+		if(getChrono() > Arguments.limit) return;
 		if(Result == null)
 			Result = new ArrayList<>();
 		if(Exclude == null)
@@ -576,12 +571,11 @@ public class Graphe {
 	
 	public static void launchChrono() {
 		chrono = System.currentTimeMillis();
-		System.out.println("Lancement du chrono");
 	}
 	
 	public static void stopChrono() {
 		long chrono_now = System.currentTimeMillis();
-		System.out.println("\nTemps écoulé : " + (chrono_now - chrono) + " ms");
+		System.out.println("Temps écoulé : " + (chrono_now - chrono) + " ms");
 	}
 	
 	public static long getChrono() {
