@@ -10,12 +10,9 @@ public class MainJerome {
 		 * Etant donné un graphe G, le problème de clique maximum (MaxClique) consiste à déterminer une clique maximum de G
 		 * (la solution optimale).
 		 */
-		 
-		for(String s : args) {
-			System.out.print("Argument : ");
-			System.out.print(s);
-			System.out.println("");
-		}
+		
+		new Arguments(args);
+		// Argument possible : -limit=10000 (en ms)	-method=1
 		
 		// Graphe G = new Graphe("./src/petitGraphe.clq");
 		Graphe G = new Graphe("./src/C125.9.clq");
