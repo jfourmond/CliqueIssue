@@ -11,6 +11,7 @@ public class Graphe {
 	private ArrayList<ArrayList<Integer>> listeCliques;
 	
 	public static ArrayList<Integer> maximumClique = new ArrayList<>();
+	public static ArrayList<Integer> sommetExclus = new ArrayList<>();
 	public static long chrono;
 	
 	/**
@@ -82,7 +83,7 @@ public class Graphe {
 		fis.close();
 	}
 	
-	//	GETTERS
+	/*	GETTERS	*/
 	public int getNbSommets() {
 		return nbSommets;
 	}
@@ -99,7 +100,7 @@ public class Graphe {
 		return listeCliques;
 	};
 	
-	//	SETTERS
+	/*	SETTERS	*/
 	public void setNbSommets(int nbSommets) {
 		this.nbSommets = nbSommets;
 	}
@@ -119,8 +120,21 @@ public class Graphe {
 	@Override
 	public String toString() {
 		super.toString();
+		String ch = Stats();
+		ch += Graph();
+		return ch;
+	}
+	
+	/*	METHODES AFFICHAGE	*/
+	public String Stats() {
 		String ch = "Sommets  : " + nbSommets + "\n" +
-					"Arcs : " + getNbArcs() + "\n";
+				"Arcs : " + getNbArcs() + "\n";
+		return ch;
+	}
+	
+	public String Graph() {
+		String ch = "";
+		
 		for(int i=0 ; i<nbSommets ; i++) {
 			ch += "| ";
 			for(int j=0 ; j<nbSommets ; j++) {
@@ -128,10 +142,12 @@ public class Graphe {
 			}
 			ch += "\n";
 		}
+		
 		return ch;
 	}
 	
-	//	METHODES
+	/*	METHODES	*/
+	
 	/**
 	 * Initialise la matrice d'arcs à false
 	 */
@@ -151,6 +167,17 @@ public class Graphe {
 			result.add(i);
 		return result;
 	}
+	
+	/**
+	 * A utiliser après l'exécution de la methode classique getClique
+	 * Retourne une liste des sommets du {@link Graphe} courant sans les sommets exclus
+	 * C'est à dire la clique maximale
+	 * @return ArrayList<Integer> : sommets
+	 */
+	public ArrayList<Integer> getSommetsNonExclus() {
+		return difference(this.getSommets(), Graphe.sommetExclus);
+	}
+	
 	/**
 	 * Teste si le {@link Graphe} courant est une clique
 	 * @return <code>true</code> si le Graphe est une clique, <code>false</code> sinon
@@ -213,15 +240,6 @@ public class Graphe {
 	public Graphe getGrapheWithout(int sommet) {
 		Graphe G = new Graphe(this.nbSommets-1);
 		boolean new_arcs[][] = new boolean[G.nbSommets][G.nbSommets];
-		/*
-		int i;
-		for(i=0 ; i<sommet ; i++) {
-			new_arcs[i] = this.arcs[i];
-		}
-		// On saute le sommet et continue le traitement (si il y en a encore)
-		for(i = sommet+1 ; i<this.nbSommets ; i++) {
-			new_arcs[i-1] = this.arcs[i];
-		} */
 		for(int i=0 ; i<this.nbSommets ; i++) {
 			for(int j=0 ; j<this.nbSommets ; j++) {
 				if(i != sommet && j != sommet) {
@@ -415,8 +433,6 @@ public class Graphe {
 		}
 		System.out.println("La clique : " + compsub);
 		System.out.println("Clique : " + compsub.size());
-		
-		
 	}
 
 	/*
@@ -460,7 +476,7 @@ public class Graphe {
 	 * @param Exclude : {@link ArrayList}
 	 */
 	public void showCliquesBK(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
-		if(getChrono() > Arguments.limit) return;
+		if(Arguments.limit != -1 && getChrono() > Arguments.limit) return;
 		if(Result == null) Result = new ArrayList<>();
 		if(Exclude == null) Exclude = new ArrayList<>();
 		
@@ -489,7 +505,7 @@ public class Graphe {
 	 * @param Exclude : {@link ArrayList}
 	 */
 	public void showCliquesTomita(ArrayList<Integer> Result, ArrayList<Integer> Candidates, ArrayList<Integer> Exclude) {
-		if(getChrono() > Arguments.limit) return;
+		if(Arguments.limit != -1 && getChrono() > Arguments.limit) return;
 		if(Result == null)
 			Result = new ArrayList<>();
 		if(Exclude == null)

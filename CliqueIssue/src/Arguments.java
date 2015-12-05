@@ -9,6 +9,7 @@ public class Arguments {
 	static public String graph = "";
 	static public long limit = -1;
 	static public int method = 0;
+	static public String show = "";
 	static public boolean help = false;
 	
 	public Arguments(String[] args) throws ArgumentException {
@@ -20,29 +21,33 @@ public class Arguments {
 				if(arg.equals("help")) {
 					help = true;
 					return;
-				}
-				int pos = arg.indexOf('=');
-				if(pos == -1) throw new ArgumentException(s);
-				String argument = arg.substring(0, pos);
-				String value = arg.substring(pos+1);
-				switch(argument) {
-					case "graph" :
-						arguments.put(argument, value);
-						break;
-					case "limit" : 
-						arguments.put(argument, Long.valueOf(value));
-						break;
-					case "method" : 
-						arguments.put(argument, Integer.valueOf(value));
-						break;
-					default:
-						throw new ArgumentException(argument);
+				} else {
+					int pos = arg.indexOf('=');
+					if(pos == -1) throw new ArgumentException(s);
+					String argument = arg.substring(0, pos);
+					String value = arg.substring(pos+1);
+					switch(argument) {
+						case "graph" :
+							arguments.put(argument, value);
+							break;
+						case "limit" : 
+							arguments.put(argument, Long.valueOf(value));
+							break;
+						case "method" : 
+							arguments.put(argument, Integer.valueOf(value));
+							break;
+						case "show" :
+							arguments.put(argument, value);
+							break;
+						default:
+							throw new ArgumentException(argument);
+					}
 				}
 			} else throw new ArgumentException(s);
 		}
 		computeMap(arguments);
 	}
-	 // METHODES
+
 	private void computeMap(Map<String, Object> M) {
 		if(M.get("graph") != null)
 			graph = (String) M.get("graph");
@@ -52,11 +57,13 @@ public class Arguments {
 		
 		if(M.get("method") != null)
 			method = (Integer) M.get("method");
+		
+		if(M.get("show") != null)
+			show = (String) M.get("show");
 	}
 	
 	public static void showValidArguments() {
-		// TODO modifier le "script"
-		System.out.println("Usage : script -graph=<file to graph> -method=<method 0, 1, 2> -limit=<time limit ms>");
+		System.out.println("Usage : clique_issue -graph=<file to graph> -method=<method 0, 1, 2> -limit=<limit time ms> -show=<all, stats, graph> ");
 	}
 	
 	public static void showHelp() {
@@ -66,5 +73,9 @@ public class Arguments {
 		System.out.println("\t\t\t 1\t:\tB-K");
 		System.out.println("\t\t\t 2\t:\tTomita");
 		System.out.println("-limit=<time limit ms>	:	the time limit of execution (ms)");
+		System.out.println("show=<all, stats, graph>\t:\twhat to show");
+		System.out.println("\t\t\t all\t:\tshow the stats of the graph and the graph (matrix)");
+		System.out.println("\t\t\t graph\t:\tshow only the graph (matrix)");
+		System.out.println("\t\t\t stats\t:\tshow only the stats");
 	}
 }

@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+
 // Pour executer en ligne de commande : java -cp bin Main
 
 public class Main {
@@ -12,28 +14,84 @@ public class Main {
 		 * (la solution optimale).
 		 */
 		
-		// Graphe G = new Graphe("./src/petitGraphe.clq");
-		Graphe G = new Graphe("./src/C125.9.clq");
+		if(args.length == 0) {
+			Arguments.showValidArguments();
+			return;
+		}
 		
-		// System.out.println("\n\nTRAITEMENT RECURSIF\n");
-		// Graphe.traitement_recursif(G, null, null);
+		try {
+			new Arguments(args);
+		} catch (ArgumentException AE) {
+			System.out.println(AE.getArgument() + " isn\'t a valid argument");
+			Arguments.showValidArguments();
+			return;
+		}
 		
-		// System.out.println("\n\nTRAITEMENT ITERATIF\n");
-		// Graphe.traitement(G);
-		// System.out.println("-----	Jérôme	-----");
-		// G.showCliques(null, G.getSommets(), null);
+		if(Arguments.help == true) {
+			Arguments.showHelp();
+			return;
+		}
 		
-		/*
-		Graphe G1 = Graphe.getClique(G);
-		if(G1.isClique()) {
-			System.out.println("G1 est une clique de " + G1.getNbSommets());
-		} else System.out.println("G1 n'est pas une clique" + G1.getNbSommets());
-		*/
+		if(Arguments.graph.equals("")) {
+			System.out.println("Pas de graphe, pas de clique.");
+			return;
+		}
 		
-		System.out.println("-----	Antoine	-----");
-		G.start_getting_cliques();
-		G.afficheListeCliques();
-		
-		System.out.println("Affichage réussi !");
+		try {
+			Graphe G = new Graphe(Arguments.graph);
+			Graphe aux;
+			
+			if(G.getNbSommets() == 0) {
+				System.out.println("Le fichier ne décrit pas un graphe");
+				return;
+			}
+			
+			switch(Arguments.show) {
+				case "all":
+					System.out.println(G);
+					break;
+				case "stats":
+					System.out.println(G.Stats());
+					break;
+				case "graph":
+					System.out.println(G.Graph());
+					break;
+				default:
+					System.out.println(G);
+					break;
+			}
+			
+			Graphe.launchChrono();
+			switch(Arguments.method) {
+				case 0:
+					// On exécute la méthode Classique
+					System.out.println("Méthode Classique ");
+					aux = Graphe.getClique(G);
+					System.out.println("Taille de la clique : " + aux.getNbSommets());
+					break;
+				case 1:
+					// On exécute la méthode BK
+					System.out.println("Méthode BK ");
+					G.showCliquesBK(null, G.getSommets(), null);
+					break;
+				case 2:
+					// On exécute Tomita
+					System.out.println("Méthode Tomita ");
+					G.showCliquesTomita(null, G.getSommets(), null);
+					break;
+				default:
+					// On exécute la méthode Classique
+					System.out.println("Méthode Classique ");
+					aux = Graphe.getClique(G);
+					System.out.println("Taille de la clique : " + aux.getNbSommets());
+					System.out.println(G.getSommetsNonExclus());
+					break;
+			}
+			Graphe.stopChrono();
+		} catch(FileNotFoundException FNFE) {
+			System.out.println("Fichier non trouvé");
+		} catch(Exception E) {
+			E.printStackTrace();
+		}
 	}
 }
