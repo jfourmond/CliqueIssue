@@ -79,6 +79,12 @@ public class Main {
 					System.out.println("Méthode Tomita ");
 					G.showCliquesTomita(null, G.getSommets(), null);
 					break;
+				case 3:
+					// On execute la méthode Classique n°2
+					System.out.println("Méthode Classique n°2 ");
+					G.start_getting_cliques();
+					G.afficheListeCliques(G.getAllCliquesMax());
+					break;
 				default:
 					// On exécute la méthode Classique
 					System.out.println("Méthode Classique ");
