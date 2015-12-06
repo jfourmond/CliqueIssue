@@ -63,15 +63,16 @@ public class Arguments {
 	}
 	
 	public static void showValidArguments() {
-		System.out.println("Usage : clique_issue -graph=<file to graph> -method=<method 0, 1, 2> -limit=<limit time ms> -show=<all, stats, graph> ");
+		System.out.println("Usage : clique_issue -graph=<file to graph> -method=<method 0, 1, 2, 3> -limit=<limit time ms> -show=<all, stats, graph> ");
 	}
 	
 	public static void showHelp() {
 		System.out.println("-graph=<file to graph>	:	the file who contains the description of the graphe");
-		System.out.println("-method=<method 0, 1, 2>	:	method to use");
-		System.out.println("\t\t\t 0\t:\tShlag");
+		System.out.println("-method=<method 0, 1, 2, 3>	:	method to use");
+		System.out.println("\t\t\t 0\t:\tClassic");
 		System.out.println("\t\t\t 1\t:\tB-K");
 		System.out.println("\t\t\t 2\t:\tTomita");
+		System.out.println("\t\t\t 3\t:\tClassic n°2");
 		System.out.println("-limit=<time limit ms>	:	the time limit of execution (ms)");
 		System.out.println("show=<all, stats, graph>\t:\twhat to show");
 		System.out.println("\t\t\t all\t:\tshow the stats of the graph and the graph (matrix)");
