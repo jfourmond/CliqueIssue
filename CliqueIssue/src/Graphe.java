@@ -485,6 +485,7 @@ public class Graphe {
 				maximumClique = Result;
 				Collections.sort(maximumClique);
 				System.out.println("Nouvelle Clique Maximale : " + maximumClique + "(" + maximumClique.size() + ")");
+				System.out.println("\t" + getChrono() + " ms");
 			}
 			return;
 		}
@@ -516,6 +517,7 @@ public class Graphe {
 				maximumClique = Result;
 				Collections.sort(maximumClique);
 				System.out.println("Nouvelle Clique Maximale : " + maximumClique + "(" + maximumClique.size() + ")");
+				System.out.println("\t" + getChrono() + " ms");
 			}
 			return;
 		}
