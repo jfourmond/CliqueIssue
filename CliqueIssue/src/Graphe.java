@@ -358,7 +358,12 @@ public class Graphe {
 		}
 	}
 	
-	//Retourne true si le graphe composé des colonnes et lignes ayant leurs indices contenus dans sommets est une clique
+	/**
+	 * Retourne VRAI si le graphe composé des colonnes et lignes ayant leurs indices contenus dans la liste en paramètre
+	 * est une clique
+	 * @param sommets : {@link ArrayList}
+	 * @return {@link Boolean}
+	 */
 	public boolean isClique(ArrayList<Integer> sommets){
 		for(Integer s1 : sommets){
 			for(Integer s2 : sommets){
@@ -368,104 +373,6 @@ public class Graphe {
 		}
 		return true;
 	}
-	
-	// TODO Le traitement ne se fait que dans un seul sens, traiter les autres ?
-	public boolean existingClique(int nbSom){
-		System.out.println("Sommet : " + nbSom);
-		for(int i = 0 ; i < nbSom ; ++i){ //i est le sommet qu'on ne comptabilise pas pour le moment
-			ArrayList<Integer> sommets = new ArrayList<Integer>();
-			for(int j = 0; j < nbSom; ++j){ // tous les sommets sauf i
-				if(j != i) sommets.add(j);
-			}
-			if(isClique(sommets)) return true;
-		}
-		return false;
-	}
-	
-	public int cliqueMax(){
-		if(isClique()) return nbSommets; // Pas besoin de tester toute la matrice si le graphe d'origine est une clique
-		for(int i = nbSommets ; i > 0 ; --i){	// Le traitement ne s'effectue pas sur tous les sommets ?
-			if(existingClique(i)) return i;
-			// TODO Attention on renvoie le sommet et non la taille de la Clique Maximale
-		}
-		return 0;
-	}
-	
-	public static void traitement(Graphe G) {
-		// Liste des sommets déjà compris comme partie de la clique
-		ArrayList<Integer> compsub = new ArrayList<>(); 
-		// Liste des sommets candidats, connectés avec tous les noeuds de compsub
-		ArrayList<Integer> candidats = new ArrayList<>();
-		// Liste des sommets déjà analysés, menant à une extension valide de compsub et qui ne devraient pas être utilisées
-		ArrayList<Integer> not = new ArrayList<>();
-		// On prend le premier sommet avec le plus de voisin
-		int sommet;
-		
-		sommet = G.getWithMostArcs();
-		System.out.println("Sommet avec le plus de voisins : " + sommet);
-		// On l'ajoute à compsub
-		compsub.add(sommet);
-		
-		// Voisins du sommet courant
-		ArrayList<Integer> neightbors;
-		neightbors = G.getNeightbors(sommet);
-		System.out.println("Voisins de " + sommet + " : " + neightbors);
-		// Les candidats susceptibles de former une clique sont les voisins du sommet
-		candidats = neightbors;
-		
-		/**
-		 * Une clique est trouvée si :
-		 * 	il n'y a pas plus de candidats ET
-		 * 	il n'y a plus de sommets dans not (sinon ce n'est pas une clique maximale)
-		 */
-		while(true) {
-			sommet = G.getWithMostArcs(candidats);
-			System.out.println("Sommet avec le plus de voisins de " + candidats + " : " + sommet);
-			
-			compsub.add(sommet);
-			
-			neightbors = G.getNeightbors(sommet);
-			candidats = intersection(candidats, neightbors);
-			System.out.println("Voisins de " + sommet + " : " + neightbors);
-			System.out.println("Intersection : " + candidats);
-			
-			if(candidats.isEmpty() && not.isEmpty()) break;
-		}
-		System.out.println("La clique : " + compsub);
-		System.out.println("Clique : " + compsub.size());
-	}
-
-	/*
-	public static void traitement_recursif(Graphe G, ArrayList<Integer> P, ArrayList<Integer> X) {
-		// Liste des sommets déjà compris comme partie de la clique
-		ArrayList<Integer> compsub = new ArrayList<>(); 
-		// Liste des sommets candidats, connectés avec tous les noeuds de compsub
-		ArrayList<Integer> candidats = new ArrayList<>();
-		// Liste des sommets déjà analysés, menant à une extension valide de compsub et qui ne devraient pas être utilisées
-		ArrayList<Integer> not = new ArrayList<>();
-		
-		int sommet;
-		
-		if(P == null && X == null) {		// Premier tour de procédure	
-			sommet = G.getWithMostArcs(); 	// On prend le sommet avec le plus de voisins
-			System.out.println("Sommet avec le plus de voisins : " + sommet);
-			// On l'ajoute à compsub
-			compsub.add(sommet);
-			
-			// Voisins du sommet courant
-			candidats = G.getNeightbors(sommet);
-			System.out.println("Voisins de " + sommet + " : " + candidats);
-			return;
-		}
-		
-		if(P.isEmpty() && X.isEmpty()) {
-			System.out.println("Clique Maximal");
-			return;
-		}
-		return;
-			
-	}
-	*/
 	
 	/**
 	 * Traitement Recursif d'une recherche de clique maximale
@@ -485,7 +392,7 @@ public class Graphe {
 				maximumClique = Result;
 				Collections.sort(maximumClique);
 				System.out.println("Nouvelle Clique Maximale : " + maximumClique + "(" + maximumClique.size() + ")");
-				System.out.println("\t" + getChrono() + " ms");
+				System.out.println("----------\t" + getChrono() + " ms");
 			}
 			return;
 		}
@@ -517,7 +424,7 @@ public class Graphe {
 				maximumClique = Result;
 				Collections.sort(maximumClique);
 				System.out.println("Nouvelle Clique Maximale : " + maximumClique + "(" + maximumClique.size() + ")");
-				System.out.println("\t" + getChrono() + " ms");
+				System.out.println("----------\t" + getChrono() + " ms");
 			}
 			return;
 		}
@@ -587,21 +494,37 @@ public class Graphe {
 		return result;
 	}
 	
+	/**
+	 * Initialise le chrono
+	 */
 	public static void launchChrono() {
 		chrono = System.currentTimeMillis();
 	}
 	
+	/**
+	 * Affiche le temps écoulé
+	 */
 	public static void stopChrono() {
 		long chrono_now = System.currentTimeMillis();
 		System.out.println("Temps écoulé : " + (chrono_now - chrono) + " ms");
 	}
 	
+	/**
+	 * Récupère le temps écoulé
+	 * @return {@link Long}
+	 */
 	public static long getChrono() {
 		long chrono_now = System.currentTimeMillis();
 		return (chrono_now - chrono);
 	}
 	
 	//retourne la liste d'entiers sans le i-ème
+	/**
+	 * Retourne la liste d'entiers sans le i-ème
+	 * @param indices {@link ArrayList}
+	 * @param i {@link Integer}
+	 * @return {@link ArrayList}
+	 */
 	ArrayList<Integer> getListWithoutI(ArrayList<Integer> indices, int i){
 		ArrayList<Integer> res = new ArrayList<Integer>();
 		for(int n = 0 ; n < indices.size(); ++n){
@@ -613,6 +536,11 @@ public class Graphe {
 	
 	
 	//Retourne les cliques de taille n-1 à partir d'une clique de taille n
+	/**
+	 * Retourne les cliques de taille n-1 à partir d'une clique de taille n
+	 * @param indices {@link ArrayList}
+	 * @return {@link ArrayList<ArrayList>}
+	 */
 	ArrayList<ArrayList<Integer>> getSousCliques(ArrayList<Integer> indices){
 		int taille_min = 2;
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
@@ -626,9 +554,12 @@ public class Graphe {
 		return res;
 	}
 	
-	//retourne
-	
-	//retourne true si deux cliques sont les mêmes
+	/**
+	 * Teste si les deux cliques sont identiques
+	 * @param clique1 : {@link ArrayList}
+	 * @param clique2 : {@link ArrayList}
+	 * @return {@link Boolean}
+	 */
 	boolean sameClique(ArrayList<Integer> clique1, ArrayList<Integer> clique2){
 		boolean res = true;
 		if(clique1.size() != clique2.size()) return false;
@@ -639,7 +570,11 @@ public class Graphe {
 		return res;
 	}
 	
-	//retourne true si la clique est déjà dans la liste des cliques
+	/**
+	 * Teste si la clique est déjà dans la liste de Cliques
+	 * @param clique : {@link ArrayList}
+	 * @return {@link Boolean}
+	 */
 	boolean isPresent(ArrayList<Integer> clique){
 		boolean res = false;
 		for(ArrayList<Integer> clique_stockee : getListeCliques()){
@@ -648,14 +583,20 @@ public class Graphe {
 		
 		return res;
 	}
-	
-	//ajoute une Clique à listeCliques
+
+	/**
+	 * Ajoute une clique à la liste de Cliques
+	 * @param clique : {@link ArrayList}
+	 */
 	void ajoutClique(ArrayList<Integer> clique){
 		if(!isPresent(clique)) listeCliques.add(clique);
 		
 	}
 	
-	//Retourne toutes les sous cliques
+	/**
+	 * Retourne toutes les sous-cliques
+	 * @param indices_clique : {@link ArrayList}
+	 */
 	void getEverySingleClique(ArrayList<Integer> indices_clique){
 		if(!indices_clique.isEmpty()){
 			for(ArrayList<Integer> sous_clique : getSousCliques(indices_clique)){
@@ -704,7 +645,10 @@ public class Graphe {
 		}
 	}
 	
-	//retourne la taille de la plus grande clique de listeCliques
+	/**
+	 * Retourne la taille de la plus grand clique de la liste de Cliques
+	 * @return {@link Integer}
+	 */
 	int getBiggestClique(){
 		int res = 0;
 			for(ArrayList<Integer> clique : getListeCliques()){
@@ -714,7 +658,12 @@ public class Graphe {
 		return res;
 	}
 	
-	//retourne true si clique 1 est incluse dans clique 2
+	/**
+	 * Teste si clique1 est inclus dans clique2
+	 * @param clique1 : {@link ArrayList}
+	 * @param clique2 : {@link ArrayList}
+	 * @return {@link Boolean}
+	 */
 	boolean isIncludedClique(ArrayList<Integer> clique1, ArrayList<Integer> clique2){
 		for(Integer i : clique1){
 			if(!clique2.contains(i)) return false;
@@ -723,7 +672,12 @@ public class Graphe {
 		return true;
 	}
 	
-	//retourne true si une clique est déjà incluse dans une liste de cliques
+	/**
+	 * Teste si une clique est déjà incluse dans une liste de cliques
+	 * @param clique : {@link ArrayList}
+	 * @param listeCliques : {@link ArrayList<ArrayList>}
+	 * @return {@link Boolean}
+	 */
 	boolean isIncludedListeCliques(ArrayList<Integer> clique, ArrayList<ArrayList<Integer>> listeCliques){
 		for(ArrayList<Integer> l_clique : listeCliques){
 			if(!sameClique(clique, l_clique)){
@@ -735,7 +689,10 @@ public class Graphe {
 		return false;
 	}
 	
-	//trie la liste des cliques par taille
+	/**
+	 * Trie la liste des cliques par taille
+	 * @return {@link ArrayList<ArrayList>}
+	 */
 	ArrayList<ArrayList<Integer>> tri_listeCliques(){
 		ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
 		for(int i = getBiggestClique(); i > 0; --i){
